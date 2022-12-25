@@ -4,17 +4,10 @@ import com.epam.training.page.GoogleCloudHomePage;
 import com.epam.training.page.GooglePricingCalculatorEstimatePage;
 import com.epam.training.page.GooglePricingCalculatorFormPage;
 import com.epam.training.page.YopmailHomePage;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.hamcrest.core.IsEqual;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.text.ParseException;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,31 +16,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 
-public class GooglePricingCalculatorTest {
-    public static final String HOMEPAGE_URL = "https://cloud.google.com/";
-    public static final String CALCULATOR_PAGE_URL = "https://cloud.google.com/products/calculator";
-    public static final String SEARCH_TERM = "Google Cloud Pricing Calculator";
-    private WebDriver driver;
+public class GooglePricingCalculatorTest extends TestConditions {
 
-    @BeforeClass()
-    public void webDriverManagerSetup() {
-        switch (System.getProperty("browser")) {
-            case "firefox" -> WebDriverManager.firefoxdriver().setup();
-            case "safari" -> WebDriverManager.safaridriver().setup();
-            default -> WebDriverManager.chromedriver().setup();
-        }
-    }
-
-    @BeforeMethod()
-    public void browserSetup() {
-        switch (System.getProperty("browser")) {
-            case "firefox" -> driver = new FirefoxDriver();
-            case "safari" -> driver = new SafariDriver();
-            default -> driver = new ChromeDriver();
-        }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.of(2, ChronoUnit.SECONDS));
-    }
 
     @Test(description = "Actual and expected sums should be equal")
     public void actualAndExpectedSumsShouldBeEqual() throws ParseException {
@@ -59,8 +29,8 @@ public class GooglePricingCalculatorTest {
         assertThat("Expecting url should be https://cloud.google.com/products/calculator", driver.getCurrentUrl(), is(CALCULATOR_PAGE_URL));
         GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage
                 .setupFormPage()
-                .initializeCalculatorForm(FormPresets.PRESET_FULL)
-                .fillAllNecessaryFields()
+                .initializeCalculatorForm(CURRENT_DATA_PRESET)
+                .fillAllNecessaryFields(CURRENT_DATA_PRESET)
                 .addToEstimate();
         double actualSum = estimatePage.getActualSumFromField();
         assertThat("Actual and expected sums should be equal", actualSum, equalTo(expectedSum));
@@ -81,8 +51,8 @@ public class GooglePricingCalculatorTest {
         assertThat("Expecting url should be https://cloud.google.com/products/calculator", driver.getCurrentUrl(), is(CALCULATOR_PAGE_URL));
         GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage
                 .setupFormPage()
-                .initializeCalculatorForm(FormPresets.PRESET_FULL)
-                .fillAllNecessaryFields()
+                .initializeCalculatorForm(CURRENT_DATA_PRESET)
+                .fillAllNecessaryFields(CURRENT_DATA_PRESET)
                 .addToEstimate();
         List<String> actualParameters = estimatePage.getActualTextFromField();
         assertThat("Resulting fields should contain expected parameters", actualParameters,
@@ -98,8 +68,8 @@ public class GooglePricingCalculatorTest {
         assertThat("Expecting url should be https://cloud.google.com/products/calculator", driver.getCurrentUrl(), is(CALCULATOR_PAGE_URL));
         GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage
                 .setupFormPage()
-                .initializeCalculatorForm(FormPresets.PRESET_LIGHT)
-                .fillAllNecessaryFields()
+                .initializeCalculatorForm(CURRENT_DATA_PRESET)
+                .fillAllNecessaryFields(CURRENT_DATA_PRESET)
                 .addToEstimate();
         YopmailHomePage yopmailHomePage = estimatePage.createYopmailPage();
         yopmailHomePage.openEmailPageInNewTab()
@@ -112,14 +82,5 @@ public class GooglePricingCalculatorTest {
         assertThat("The Sum in email should be the same as the estimate sum", actualSum, IsEqual.equalTo(expectedSum));
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void browserTearDown() {
-        driver.quit();
-    }
 
-    public enum FormPresets {
-        PRESET_LIGHT,
-        PRESET_FULL,
-        PRESET_WITHOUT_GPU
-    }
 }

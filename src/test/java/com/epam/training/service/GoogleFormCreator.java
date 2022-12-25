@@ -3,12 +3,11 @@ package com.epam.training.service;
 import com.epam.training.form.GoogleCalculatorForm;
 
 public class GoogleFormCreator {
-    public static GoogleCalculatorForm withOnlyNumberOfInstances() {
+    public static GoogleCalculatorForm withMinimumElements() {
         GoogleCalculatorForm form = new GoogleCalculatorForm();
         form.setNumberOfInstances(FormXpathStorage.Instances.ONE.value);
         form.setSeriesXpath(FormXpathStorage.Series.N1.value);
         form.setMachineTypeXpath(FormXpathStorage.MachineTypes.N1_STANDART_8.value);
-
         return form;
     }
 
@@ -27,7 +26,7 @@ public class GoogleFormCreator {
         return form;
     }
 
-    public static GoogleCalculatorForm withAllelementsExcludeGpu() {
+    public static GoogleCalculatorForm withAllElementsExcludeGpu() {
         GoogleCalculatorForm form = new GoogleCalculatorForm();
         form.setNumberOfInstances(FormXpathStorage.Instances.FOUR.value);
         form.setOperatingSystemXpath(FormXpathStorage.OperatingSystems.FREE.value);

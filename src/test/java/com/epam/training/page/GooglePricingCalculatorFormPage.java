@@ -2,7 +2,6 @@ package com.epam.training.page;
 
 import com.epam.training.form.GoogleCalculatorForm;
 import com.epam.training.service.GoogleFormCreator;
-import com.epam.training.test.GooglePricingCalculatorTest.FormPresets;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class GooglePricingCalculatorFormPage extends AbstractPage {
     private GoogleCalculatorForm form;
-    private FormPresets currentPreset;
 
     @FindBy(xpath = "//iframe[@id='myFrame']")
     private WebElement iFrameElement;
@@ -65,25 +63,24 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
-    public GooglePricingCalculatorFormPage initializeCalculatorForm(FormPresets preset) {
-        currentPreset = preset;
+    public GooglePricingCalculatorFormPage initializeCalculatorForm(String preset) {
         switch (preset) {
-            case PRESET_LIGHT -> form = GoogleFormCreator.withOnlyNumberOfInstances();
-            case PRESET_FULL -> form = GoogleFormCreator.withAllElements();
-            case PRESET_WITHOUT_GPU -> form = GoogleFormCreator.withAllelementsExcludeGpu();
+            case "minimal" -> form = GoogleFormCreator.withMinimumElements();
+            case "full" -> form = GoogleFormCreator.withAllElements();
+            case "full_without_gpu" -> form = GoogleFormCreator.withAllElementsExcludeGpu();
         }
         return this;
     }
 
-    public GooglePricingCalculatorFormPage fillAllNecessaryFields() {
-        switch (currentPreset) {
-            case PRESET_LIGHT -> {
+    public GooglePricingCalculatorFormPage fillAllNecessaryFields(String preset) {
+        switch (preset) {
+            case "minimal" -> {
                 this.setNumberOfInstances()
                         .selectSeries()
                         .selectMachineType();
                 return this;
             }
-            case PRESET_FULL -> {
+            case "full" -> {
                 this.setNumberOfInstances()
                         .selectOperatingSystem()
                         .selectProvisioningModel()
@@ -97,7 +94,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
                         .selectCommittedUsage();
                 return this;
             }
-            case PRESET_WITHOUT_GPU -> {
+            case "full_without_gpu" -> {
                 this.setNumberOfInstances()
                         .selectOperatingSystem()
                         .selectProvisioningModel()
