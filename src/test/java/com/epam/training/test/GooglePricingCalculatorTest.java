@@ -1,12 +1,12 @@
 package com.epam.training.test;
 
-import com.epam.training.page.GooglePricingCalculatorFormPage;
-import com.epam.training.page.YopmailHomePage;
+import com.epam.training.driver.DriverSingleton;
 import com.epam.training.page.GoogleCloudHomePage;
 import com.epam.training.page.GooglePricingCalculatorEstimatePage;
+import com.epam.training.page.GooglePricingCalculatorFormPage;
+import com.epam.training.page.YopmailHomePage;
 import org.hamcrest.core.IsEqual;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -28,6 +28,13 @@ public class GooglePricingCalculatorTest {
     public static final String SEARCH_TERM = "Google Cloud Pricing Calculator";
     private WebDriver driver;
 
+    @BeforeMethod(alwaysRun = true)
+    public void browserSetup() {
+        driver = DriverSingleton.getDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.of(2, ChronoUnit.SECONDS));
+    }
+
     @Test(description = "Actual and expected sums should be equal")
     public void actualAndExpectedSumsShouldBeEqual() throws ParseException {
         double expectedSum = 2275.48;
@@ -43,13 +50,6 @@ public class GooglePricingCalculatorTest {
                 .addToEstimate();
         double actualSum = estimatePage.getActualSumFromField();
         assertThat("Actual and expected sums should be equal", actualSum, equalTo(expectedSum));
-    }
-
-    @BeforeMethod(alwaysRun = true)
-    public void browserSetup() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.of(2, ChronoUnit.SECONDS));
     }
 
     @AfterMethod(alwaysRun = true)
