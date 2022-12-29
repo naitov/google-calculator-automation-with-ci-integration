@@ -1,4 +1,4 @@
-package com.epam.training.page;
+package framework.example.org.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,18 +17,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class YopmailHomePage extends AbstractPage {
-    private String randomEmailName;
     private final String estimateWindowHandle;
-    private String yopmailWindowHandle;
-
     @FindBy(xpath = "//button[@id='refresh']")
     WebElement refreshButton;
-
     @FindBy(xpath = "//div[@id='nbmail']")
     WebElement mailCounterLabel;
-
     @FindBy(xpath = "//*[contains(text(), 'Estimated Monthly Cost:')]")
     WebElement estimatedMonthlyCostField;
+    private String randomEmailName;
+    private String yopmailWindowHandle;
 
 
     public YopmailHomePage(WebDriver driver, String estimateWindowHandle) {

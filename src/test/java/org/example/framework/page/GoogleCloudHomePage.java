@@ -1,6 +1,6 @@
-package com.epam.training.page;
+package framework.example.org.page;
 
-import com.epam.training.test.GooglePricingCalculatorTest;
+import framework.example.org.test.TestSettings;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,13 +20,13 @@ public class GoogleCloudHomePage extends AbstractPage {
     }
 
     public GoogleCloudHomePage searchForTerm() {
-        searchField.sendKeys(GooglePricingCalculatorTest.SEARCH_TERM);
+        searchField.sendKeys(TestSettings.SEARCH_TERM);
         searchField.submit();
         return this;
     }
 
     public GooglePricingCalculatorFormPage getCalculatorPageFromSearch() {
-        getElementWithClickableWait(WaitTimeouts.FIVE_SEC, "//div[@class='gs-title']//a").click();
+        getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//div[@class='gs-title']//a").click();
         return new GooglePricingCalculatorFormPage(driver);
     }
 }

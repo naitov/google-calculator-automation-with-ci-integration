@@ -1,4 +1,4 @@
-package com.epam.training.page;
+package framework.example.org.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -35,21 +35,8 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
         return webElementTextList;
     }
 
-    public double getActualSumFromField() throws ParseException {
-        double parsedSum = 0d;
-        String elementText = getElementWithPresenceWait(WaitTimeouts.THREE_SEC, "//*[@id='compute']/descendant::b[contains(text(), 'Estimated Component Cost')]")
-                .getText();
-        Matcher matcher = Pattern.compile("([0-9,.]{2,20})").matcher(elementText);
-        if (matcher.find()) {
-            NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
-            parsedSum = numberFormat.parse(matcher.group()).doubleValue();
-        }
-        return parsedSum;
-    }
-
-    public double getEstimateSum() throws ParseException {
-        driver.switchTo().frame(0);
-        driver.switchTo().frame(iFrameElement);
+    public double getSumFromEstimateField() throws ParseException {
+        switchToCalcPageFrame(iFrameElement);
         String estimateSummaryString = getElementWithPresenceWait(WaitTimeouts.THREE_SEC, "//*[@id='compute']/descendant::b[contains(text(), 'Estimated Component Cost')]")
                 .getText();
         Pattern pattern = Pattern.compile("([0-9,.]{2,20})");
@@ -77,5 +64,10 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
 
     public void switchToYopmail() {
         driver.switchTo().window(yopmailPage.getYopmailWindowHandle());
+    }
+
+    private void switchToCalcPageFrame(WebElement frame) {
+        driver.switchTo().frame(0);
+        driver.switchTo().frame(frame);
     }
 }

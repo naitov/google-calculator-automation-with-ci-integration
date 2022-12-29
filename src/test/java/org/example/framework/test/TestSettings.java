@@ -1,6 +1,5 @@
-package com.epam.training.test;
+package framework.example.org.test;
 
-import com.epam.training.service.TestDataReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,13 +12,12 @@ import org.testng.annotations.BeforeMethod;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-public class TestConditions {
+public class TestSettings {
     public static final String HOMEPAGE_URL = "https://cloud.google.com/";
     public static final String CALCULATOR_PAGE_URL = "https://cloud.google.com/products/calculator";
     public static final String SEARCH_TERM = "Google Cloud Pricing Calculator";
+    public static final String TESTING_ENVIRONMENT = TestEnvironmentReader.getTestData("env.settings");
     protected WebDriver driver;
-    public static final String CURRENT_DATA_PRESET = TestDataReader.getTestData("testdata.preset");
-
 
     @BeforeClass()
     public void webDriverManagerSetup() {
@@ -45,4 +43,5 @@ public class TestConditions {
     public void browserTearDown() {
         driver.quit();
     }
+
 }
