@@ -1,9 +1,8 @@
-package framework.example.org.page;
+package org.example.framework.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -16,9 +15,6 @@ import java.util.regex.Pattern;
 public class GooglePricingCalculatorEstimatePage extends AbstractPage {
     private double actualSum = -1.0;
     private YopmailHomePage yopmailPage;
-
-    @FindBy(xpath = "//iframe[@id='myFrame']")
-    private WebElement iFrameElement;
 
     public GooglePricingCalculatorEstimatePage(WebDriver driver) {
         super(driver);
@@ -36,7 +32,6 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
     }
 
     public double getSumFromEstimateField() throws ParseException {
-        switchToCalcPageFrame(iFrameElement);
         String estimateSummaryString = getElementWithPresenceWait(WaitTimeouts.THREE_SEC, "//*[@id='compute']/descendant::b[contains(text(), 'Estimated Component Cost')]")
                 .getText();
         Pattern pattern = Pattern.compile("([0-9,.]{2,20})");
@@ -64,10 +59,5 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
 
     public void switchToYopmail() {
         driver.switchTo().window(yopmailPage.getYopmailWindowHandle());
-    }
-
-    private void switchToCalcPageFrame(WebElement frame) {
-        driver.switchTo().frame(0);
-        driver.switchTo().frame(frame);
     }
 }

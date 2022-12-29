@@ -1,8 +1,8 @@
-package framework.example.org.form;
+package org.example.framework.form;
 
-import framework.example.org.enums.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.framework.enums.*;
 
 @Getter
 @Setter

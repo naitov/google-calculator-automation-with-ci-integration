@@ -1,4 +1,4 @@
-package framework.example.org.page;
+package org.example.framework.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,12 +18,15 @@ import java.util.regex.Pattern;
 
 public class YopmailHomePage extends AbstractPage {
     private final String estimateWindowHandle;
-    @FindBy(xpath = "//button[@id='refresh']")
-    WebElement refreshButton;
+
     @FindBy(xpath = "//div[@id='nbmail']")
     WebElement mailCounterLabel;
+
     @FindBy(xpath = "//*[contains(text(), 'Estimated Monthly Cost:')]")
     WebElement estimatedMonthlyCostField;
+
+    @FindBy(xpath = "//iframe[@id='myFrame']")
+    private WebElement iFrameElement;
     private String randomEmailName;
     private String yopmailWindowHandle;
 
@@ -52,19 +55,20 @@ public class YopmailHomePage extends AbstractPage {
 
     public void switchToEstimatePage() {
         driver.switchTo().window(estimateWindowHandle);
+        driver.switchTo().frame(0);
+        driver.switchTo().frame(iFrameElement);
     }
 
-    public YopmailHomePage waitForMail() throws InterruptedException {
+    public YopmailHomePage waitForMail() {
         while (mailCounterLabel.getText().equals("0 mail")) {
-            refreshButton.click();
-            Thread.sleep(2000);
+            driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
+            getElementWithClickableWait(WaitTimeouts.SIXTY_SEC, "//button[@id='refresh']").click();
         }
         return this;
     }
 
     public double getActualSum() throws ParseException {
-        WebElement mailFrame = new WebDriverWait(driver, Duration.of(500, ChronoUnit.MILLIS))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//iframe[@id='ifmail']")));
+        WebElement mailFrame = getElementWithPresenceWait(WaitTimeouts.ONE_SEC, "//iframe[@id='ifmail']");
         driver.switchTo().frame(mailFrame);
         String emailCost = estimatedMonthlyCostField.getText();
         double parsedSumFromEmail = 0d;

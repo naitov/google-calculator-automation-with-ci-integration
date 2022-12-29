@@ -1,4 +1,4 @@
-package framework.example.org.enums;
+package org.example.framework.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OperatingSystems {
     FREE("Free", "free"),
-    UBUNTU_PRO("Paid", "//md-option[@value='ubuntu-pro']"),
-    WINDOWS("Paid", "//md-option[@value='win']");
+    UBUNTU_PRO("Paid", "ubuntu-pro"),
+    WINDOWS("Paid", "win");
 
-    final String value;
     private final String name;
+    private final String value;
 }

@@ -1,6 +1,6 @@
-package framework.example.org.page;
+package org.example.framework.page;
 
-import framework.example.org.form.GoogleCalculatorForm;
+import org.example.framework.form.GoogleCalculatorForm;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,14 +55,15 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
 
     public void setupFormPage() {
         cookieOkButton.click();
-        switchToCalcPageFrame(iFrameElement);
+        driver.switchTo().frame(0);
+        driver.switchTo().frame(iFrameElement);
     }
 
     public void fillAllNecessaryFields(String environment, GoogleCalculatorForm form) {
         switch (environment) {
-            case "dev" -> this.setNumberOfInstances(form)
-                    .selectSeries(form)
-                    .selectMachineType(form);
+            case "dev" -> this.setNumberOfInstances(form);
+//                    .selectSeries(form)
+//                    .selectMachineType(form);
             case "staging" -> this.setNumberOfInstances(form)
                     .selectOperatingSystem(form)
                     .selectProvisioningModel(form)
@@ -79,7 +80,6 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
                     .selectProvisioningModel(form)
                     .selectSeries(form)
                     .selectMachineType(form)
-                    .selectLocalSsd(form)
                     .selectDataCenterLocation(form)
                     .selectCommittedUsage(form);
         }
@@ -130,7 +130,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     private GooglePricingCalculatorFormPage selectGpuType(GoogleCalculatorForm form) {
         gpuTypeList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
-                String.format("//*[@value='%s]", form.getGpuType().getValue())).click();
+                String.format("//*[@value='%s']", form.getGpuType().getValue())).click();
         return this;
     }
 
@@ -166,10 +166,5 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     public GooglePricingCalculatorEstimatePage addToEstimate() {
         addToEstimateButton.submit();
         return new GooglePricingCalculatorEstimatePage(driver);
-    }
-
-    private void switchToCalcPageFrame(WebElement frame) {
-        driver.switchTo().frame(0);
-        driver.switchTo().frame(frame);
     }
 }

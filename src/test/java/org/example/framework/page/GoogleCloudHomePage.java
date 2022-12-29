@@ -1,6 +1,6 @@
-package framework.example.org.page;
+package org.example.framework.page;
 
-import framework.example.org.test.TestSettings;
+import org.example.framework.test.TestSettings;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

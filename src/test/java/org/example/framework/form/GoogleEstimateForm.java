@@ -1,4 +1,4 @@
-package framework.example.org.form;
+package org.example.framework.form;
 
 import lombok.Getter;
 

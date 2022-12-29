@@ -1,6 +1,6 @@
-package framework.example.org.form;
+package org.example.framework.form;
 
-import framework.example.org.enums.*;
+import org.example.framework.enums.*;
 
 public class GoogleCalculatorFormFactory {
     private static GoogleCalculatorForm form;
@@ -17,7 +17,7 @@ public class GoogleCalculatorFormFactory {
         form.setOperatingSystem(OperatingSystems.FREE);
         form.setProvisioningModel(ProvisioningModels.REGULAR);
         form.setSeries(Series.N1);
-        form.setMachineType(MachineTypes.N1_STANDART_8);
+        form.setMachineType(MachineTypes.N1_STANDARD_8);
         form.setGpuType(GpuTypes.NVIDIA_P4);
         form.setNumberOfGpu(GpuNumbers.ONE_GPU);
         form.setLocalSsd(SsdNumbers.TWO_SSD);
@@ -32,7 +32,9 @@ public class GoogleCalculatorFormFactory {
         form.setOperatingSystem(OperatingSystems.FREE);
         form.setProvisioningModel(ProvisioningModels.REGULAR);
         form.setSeries(Series.E2);
-        form.setMachineType(MachineTypes.E2_STANDART_2);
+        form.setMachineType(MachineTypes.E2_STANDARD_2);
+        form.setGpuType(GpuTypes.WITHOUT_TYPE);
+        form.setNumberOfGpu(GpuNumbers.WITHOUT_GPU);
         form.setLocalSsd(SsdNumbers.ONE_SSD);
         form.setDatacenterLocation(DatacenterLocations.WARSAW);
         form.setCommittedUsage(CommittedUsages.THREE_YEARS);

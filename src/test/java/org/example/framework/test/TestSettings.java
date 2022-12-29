@@ -1,4 +1,4 @@
-package framework.example.org.test;
+package org.example.framework.test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +17,7 @@ public class TestSettings {
     public static final String CALCULATOR_PAGE_URL = "https://cloud.google.com/products/calculator";
     public static final String SEARCH_TERM = "Google Cloud Pricing Calculator";
     public static final String TESTING_ENVIRONMENT = TestEnvironmentReader.getTestData("env.settings");
+    protected double expectedSum = -1d;
     protected WebDriver driver;
 
     @BeforeClass()
@@ -30,11 +31,8 @@ public class TestSettings {
 
     @BeforeMethod()
     public void browserSetup() {
-        switch (System.getProperty("browser")) {
-            case "firefox" -> driver = new FirefoxDriver();
-            case "safari" -> driver = new SafariDriver();
-            default -> driver = new ChromeDriver();
-        }
+        setBrowser();
+        setExpectedSum();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.of(2, ChronoUnit.SECONDS));
     }
@@ -44,4 +42,19 @@ public class TestSettings {
         driver.quit();
     }
 
+    private void setBrowser() {
+        switch (System.getProperty("browser")) {
+            case "firefox" -> driver = new FirefoxDriver();
+            case "safari" -> driver = new SafariDriver();
+            default -> driver = new ChromeDriver();
+        }
+    }
+
+    private void setExpectedSum() {
+        switch (TESTING_ENVIRONMENT) {
+            case "dev" -> expectedSum = 48.92;
+            case "staging" -> expectedSum = 2275.48;
+            case "qa" -> expectedSum = 113.44;
+        }
+    }
 }

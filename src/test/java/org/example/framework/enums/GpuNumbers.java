@@ -1,4 +1,4 @@
-package framework.example.org.enums;
+package org.example.framework.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum GpuNumbers {
     ONE_GPU("1", "1"),
-    TWO_GPU("2", "2");
+    TWO_GPU("2", "2"),
+    WITHOUT_GPU("0", "0");
 
     private final String name;
     private final String value;

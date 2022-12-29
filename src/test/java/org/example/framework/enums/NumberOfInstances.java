@@ -1,4 +1,4 @@
-package framework.example.org.enums;
+package org.example.framework.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum NumberOfInstances {
     ONE("1", "1"),
-    FOUR("4", "1");
+    FOUR("4", "4");
 
     private final String name;
     private final String value;

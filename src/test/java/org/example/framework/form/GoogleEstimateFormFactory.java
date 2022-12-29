@@ -1,9 +1,9 @@
-package framework.example.org.form;
+package org.example.framework.form;
 
-import framework.example.org.enums.DatacenterLocations;
-import framework.example.org.enums.MachineTypes;
-import framework.example.org.enums.OperatingSystems;
-import framework.example.org.enums.ProvisioningModels;
+import org.example.framework.enums.DatacenterLocations;
+import org.example.framework.enums.MachineTypes;
+import org.example.framework.enums.OperatingSystems;
+import org.example.framework.enums.ProvisioningModels;
 
 public class GoogleEstimateFormFactory {
     private static GoogleEstimateForm estimateForm;
@@ -12,7 +12,7 @@ public class GoogleEstimateFormFactory {
         estimateForm = new GoogleEstimateForm(
                 DatacenterLocations.IOWA.getName(),
                 ProvisioningModels.REGULAR.getName(),
-                MachineTypes.E2_STANDART_2.getName(),
+                MachineTypes.E2_STANDARD_2.getName(),
                 OperatingSystems.FREE.getName());
         return estimateForm;
     }

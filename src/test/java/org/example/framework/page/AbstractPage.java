@@ -1,4 +1,4 @@
-package framework.example.org.page;
+package org.example.framework.page;
 
 import lombok.AllArgsConstructor;
 import org.openqa.selenium.By;
@@ -31,7 +31,8 @@ abstract class AbstractPage {
     enum WaitTimeouts {
         ONE_SEC(Duration.of(1, ChronoUnit.SECONDS)),
         THREE_SEC(Duration.of(3, ChronoUnit.SECONDS)),
-        TEN_SEC(Duration.of(10, ChronoUnit.SECONDS));
+        TEN_SEC(Duration.of(10, ChronoUnit.SECONDS)),
+        SIXTY_SEC(Duration.of(60, ChronoUnit.SECONDS));
         private final Duration duration;
     }
 }
