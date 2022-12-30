@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 abstract class AbstractPage {
-    protected WebDriver driver;
+    protected final WebDriver driver;
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;

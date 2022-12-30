@@ -7,7 +7,6 @@ import org.example.framework.form.GoogleEstimateFormFactory;
 import org.example.framework.page.GoogleCloudHomePage;
 import org.example.framework.page.GooglePricingCalculatorEstimatePage;
 import org.example.framework.page.GooglePricingCalculatorFormPage;
-import org.example.framework.page.YopmailHomePage;
 import org.testng.annotations.Test;
 
 import java.text.ParseException;
@@ -19,6 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 
 public class GooglePricingCalculatorTest extends TestSettings {
+
     @Test(description = "Actual and expected sums should be equal")
     public void actualAndExpectedSumsShouldBeEqual() throws ParseException {
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
@@ -27,11 +27,11 @@ public class GooglePricingCalculatorTest extends TestSettings {
         GooglePricingCalculatorFormPage calculatorFormPage = homePage.getCalculatorPageFromSearch();
         assertThat(String.format("Expecting url should be %s", CALCULATOR_PAGE_URL), driver.getCurrentUrl(), is(CALCULATOR_PAGE_URL));
         calculatorFormPage.setupFormPage();
-        GoogleCalculatorForm calculatorForm = new GoogleCalculatorForm();
+        GoogleCalculatorForm calculatorForm;
         switch (TESTING_ENVIRONMENT) {
-            case "dev" -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithMinimumElements();
             case "staging" -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithAllElements();
             case "qa" -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithAllElementsExcludeGpu();
+            default -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithMinimumElements();
         }
         calculatorFormPage.fillAllNecessaryFields(TESTING_ENVIRONMENT, calculatorForm);
         GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage.addToEstimate();
@@ -54,8 +54,8 @@ public class GooglePricingCalculatorTest extends TestSettings {
             case "qa" -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithAllElementsExcludeGpu();
         }
         calculatorFormPage.fillAllNecessaryFields(TESTING_ENVIRONMENT, calculatorForm);
-        GoogleEstimateForm estimateForm;
         GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage.addToEstimate();
+        GoogleEstimateForm estimateForm;
         switch (TESTING_ENVIRONMENT) {
             case "dev" -> {
                 estimateForm = GoogleEstimateFormFactory.withDefaultFields();
@@ -102,31 +102,5 @@ public class GooglePricingCalculatorTest extends TestSettings {
                         hasItem(estimateForm.getLocalSsd()));
             }
         }
-    }
-
-    @Test(description = "The Sum in email should be the same as the estimate sum")
-    public void sumInEmailShouldBeEqualCalculatorSum() throws ParseException {
-        GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
-                .openHomePage(HOMEPAGE_URL)
-                .searchForTerm();
-        GooglePricingCalculatorFormPage calculatorFormPage = homePage.getCalculatorPageFromSearch();
-        assertThat(String.format("Expecting url should be %s", CALCULATOR_PAGE_URL), driver.getCurrentUrl(), is(equalTo(CALCULATOR_PAGE_URL)));
-        calculatorFormPage.setupFormPage();
-        GoogleCalculatorForm calculatorForm = new GoogleCalculatorForm();
-        switch (TESTING_ENVIRONMENT) {
-            case "dev" -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithMinimumElements();
-            case "staging" -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithAllElements();
-            case "qa" -> calculatorForm = GoogleCalculatorFormFactory.getCalcFormWithAllElementsExcludeGpu();
-        }
-        calculatorFormPage.fillAllNecessaryFields(TESTING_ENVIRONMENT, calculatorForm);
-        GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage.addToEstimate();
-        YopmailHomePage yopmailHomePage = estimatePage.createYopmailPage();
-        yopmailHomePage.openEmailPageInNewTab()
-                .createNewMailBoxWithRandomName()
-                .switchToEstimatePage();
-        estimatePage.sendEmailFromPage()
-                .switchToYopmail();
-        double actualSum = yopmailHomePage.waitForMail().getActualSum();
-        assertThat("The Sum in email should be the same as the estimate sum", actualSum, is(equalTo(expectedSum)));
     }
 }

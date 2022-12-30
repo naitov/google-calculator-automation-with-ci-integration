@@ -5,15 +5,18 @@ import org.example.framework.enums.MachineTypes;
 import org.example.framework.enums.OperatingSystems;
 import org.example.framework.enums.ProvisioningModels;
 
+import static org.example.framework.test.TestSettings.logger;
+
 public class GoogleEstimateFormFactory {
     private static GoogleEstimateForm estimateForm;
 
     public static GoogleEstimateForm withDefaultFields() {
         estimateForm = new GoogleEstimateForm(
-                DatacenterLocations.IOWA.getName(),
+                DatacenterLocations.FRANKFURT.getName(),
                 ProvisioningModels.REGULAR.getName(),
                 MachineTypes.E2_STANDARD_2.getName(),
                 OperatingSystems.FREE.getName());
+        logger.info("Created new estimate form with default fields");
         return estimateForm;
     }
 
@@ -27,6 +30,7 @@ public class GoogleEstimateFormFactory {
                 form.getNumberOfGpu().getName(),
                 form.getGpuType().getName(),
                 form.getLocalSsd().getName());
+        logger.info("Created new estimate form with user filled fields");
         return estimateForm;
     }
 }

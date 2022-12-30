@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static org.example.framework.test.TestSettings.logger;
+
 public class GooglePricingCalculatorFormPage extends AbstractPage {
 
     @FindBy(xpath = "//iframe[@id='myFrame']")
@@ -61,9 +63,8 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
 
     public void fillAllNecessaryFields(String environment, GoogleCalculatorForm form) {
         switch (environment) {
-            case "dev" -> this.setNumberOfInstances(form);
-//                    .selectSeries(form)
-//                    .selectMachineType(form);
+            case "dev" -> this.setNumberOfInstances(form)
+                    .selectDataCenterLocation(form);
             case "staging" -> this.setNumberOfInstances(form)
                     .selectOperatingSystem(form)
                     .selectProvisioningModel(form)
@@ -83,6 +84,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
                     .selectDataCenterLocation(form)
                     .selectCommittedUsage(form);
         }
+        logger.info(String.format("Selecting fields according to environment: %s", environment));
     }
 
     private GooglePricingCalculatorFormPage setNumberOfInstances(GoogleCalculatorForm form) {
@@ -165,6 +167,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
 
     public GooglePricingCalculatorEstimatePage addToEstimate() {
         addToEstimateButton.submit();
+        logger.info("Created new estimate page");
         return new GooglePricingCalculatorEstimatePage(driver);
     }
 }
