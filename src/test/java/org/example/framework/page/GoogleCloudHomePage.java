@@ -1,11 +1,11 @@
 package org.example.framework.page;
 
-import org.example.framework.test.TestSettings;
+import org.example.framework.test.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.example.framework.test.TestSettings.logger;
+import static org.example.framework.test.BaseTest.logger;
 
 public class GoogleCloudHomePage extends AbstractPage {
 
@@ -23,9 +23,9 @@ public class GoogleCloudHomePage extends AbstractPage {
     }
 
     public GoogleCloudHomePage searchForTerm() {
-        searchField.sendKeys(TestSettings.SEARCH_TERM);
+        searchField.sendKeys(BaseTest.SEARCH_TERM);
         searchField.submit();
-        logger.info(String.format("Searching for: \"%s\"", TestSettings.SEARCH_TERM));
+        logger.info(String.format("Searching for: \"%s\"", BaseTest.SEARCH_TERM));
         return this;
     }
 

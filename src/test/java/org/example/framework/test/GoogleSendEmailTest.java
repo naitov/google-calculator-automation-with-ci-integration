@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GoogleSendEmailTest extends TestSettings {
+public class GoogleSendEmailTest extends BaseTest {
 
     @Test(description = "The Sum in email should be the same as the estimate sum")
     public void sumInEmailShouldBeEqualCalculatorSum() throws ParseException {

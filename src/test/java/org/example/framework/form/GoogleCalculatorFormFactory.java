@@ -2,7 +2,7 @@ package org.example.framework.form;
 
 import org.example.framework.enums.*;
 
-import static org.example.framework.test.TestSettings.logger;
+import static org.example.framework.test.BaseTest.logger;
 
 public class GoogleCalculatorFormFactory {
     private static GoogleCalculatorForm form;

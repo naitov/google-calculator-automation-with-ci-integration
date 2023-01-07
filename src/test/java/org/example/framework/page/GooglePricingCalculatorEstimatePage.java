@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.framework.test.TestSettings.logger;
+import static org.example.framework.test.BaseTest.logger;
 
 public class GooglePricingCalculatorEstimatePage extends AbstractPage {
     private double actualSum = -1.0;

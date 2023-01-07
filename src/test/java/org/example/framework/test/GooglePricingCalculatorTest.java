@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 
-public class GooglePricingCalculatorTest extends TestSettings {
+public class GooglePricingCalculatorTest extends BaseTest {
 
     @Test(description = "Actual and expected sums should be equal")
     public void actualAndExpectedSumsShouldBeEqual() throws ParseException {

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.example.framework.test.TestSettings.logger;
+import static org.example.framework.test.BaseTest.logger;
 
 public class GooglePricingCalculatorFormPage extends AbstractPage {
 

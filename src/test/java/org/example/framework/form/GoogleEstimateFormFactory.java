@@ -5,7 +5,7 @@ import org.example.framework.enums.MachineTypes;
 import org.example.framework.enums.OperatingSystems;
 import org.example.framework.enums.ProvisioningModels;
 
-import static org.example.framework.test.TestSettings.logger;
+import static org.example.framework.test.BaseTest.logger;
 
 public class GoogleEstimateFormFactory {
     private static GoogleEstimateForm estimateForm;

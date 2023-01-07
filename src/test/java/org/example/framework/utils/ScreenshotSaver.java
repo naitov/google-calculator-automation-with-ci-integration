@@ -2,7 +2,7 @@ package org.example.framework.utils;
 
 import lombok.NoArgsConstructor;
 import org.apache.commons.io.FileUtils;
-import org.example.framework.test.TestSettings;
+import org.example.framework.test.BaseTest;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.example.framework.test.TestSettings.logger;
+import static org.example.framework.test.BaseTest.logger;
 
 @NoArgsConstructor
 public class ScreenshotSaver implements ITestListener {
-    private final WebDriver driver = TestSettings.getDriver();
+    private final WebDriver driver = BaseTest.getDriver();
 
     @Override
     public void onTestStart(ITestResult result) {

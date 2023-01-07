@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 @Listeners({ScreenshotSaver.class})
-public class TestSettings {
+public class BaseTest {
     public static final String HOMEPAGE_URL = "https://cloud.google.com/";
     public static final String CALCULATOR_PAGE_URL = "https://cloud.google.com/products/calculator";
     public static final String SEARCH_TERM = "Google Cloud Pricing Calculator";
