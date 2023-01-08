@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Smoke" verbose="1" >
-    <test name="GoogleSendEmailTest">
+<suite name="Smoke Tests" verbose="1" >
+    <test name="Smoke Tests">
         <classes>
             <class name="org.example.framework.test.SmokeTests" />
         </classes>

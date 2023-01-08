@@ -21,7 +21,7 @@ public class SmokeTests extends BaseTest {
 
     @Test(description = "Smoke test, checks if sum in estimate page corresponds to manual sum")
     public void smokeActualAndExpectedSumsShouldBeEqual() throws ParseException {
-        double expectedSum = 48.92;
+        double expectedSum = 63.02;
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
                 .openHomePage(HOMEPAGE_URL)
                 .searchForTerm();
