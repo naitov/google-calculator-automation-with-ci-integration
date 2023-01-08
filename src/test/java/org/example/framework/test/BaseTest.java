@@ -1,6 +1,7 @@
 package org.example.framework.test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.framework.utils.ScreenshotSaver;
@@ -24,9 +25,9 @@ public class BaseTest {
     public static final Logger logger = LogManager.getRootLogger();
     protected static WebDriver driver;
 
-    //TODO add Allure annotations
     //TODO in readme: problem desc, objectives desc, solution desc, tests estimated time
 
+    @Step("New WebDriver object")
     public static WebDriver getDriver() {
         if (driver == null) {
             switch (System.getProperty("browser").toLowerCase()) {
@@ -34,7 +35,7 @@ public class BaseTest {
                 case "safari" -> driver = new SafariDriver();
                 case "chrome" -> driver = new ChromeDriver();
                 default -> throw new IllegalArgumentException(String.format("This test suite do not support %s",
-                        System.getProperty("browser").toLowerCase()));
+                        System.getProperty("browser")));
             }
         }
         return driver;
@@ -58,6 +59,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.of(2, ChronoUnit.SECONDS));
     }
 
+    @Step("Quit and null driver")
     @AfterMethod(alwaysRun = true)
     public void browserTearDown() {
         driver.quit();

@@ -1,5 +1,6 @@
 package org.example.framework.page;
 
+import io.qameta.allure.Step;
 import org.example.framework.form.GoogleCalculatorForm;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -61,11 +62,13 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         driver.switchTo().frame(iFrameElement);
     }
 
+
     public void fillSmokeFields(GoogleCalculatorForm form) {
         this.setNumberOfInstances(form)
                 .selectDataCenterLocation(form);
         logger.info("Selecting fields according to Smoke scope");
     }
+
 
     public void fillMinAcceptanceFields(GoogleCalculatorForm form) {
         this.setNumberOfInstances(form)
@@ -77,6 +80,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
                 .selectCommittedUsage(form);
         logger.info("Selecting fields according to Minimal acceptance test scope");
     }
+
 
     public void fillFullAcceptanceFields(GoogleCalculatorForm form) {
         this.setNumberOfInstances(form)
@@ -93,11 +97,13 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         logger.info("Selecting fields according to Full acceptance test scope");
     }
 
+    @Step("Select field: Number Of Instances")
     private GooglePricingCalculatorFormPage setNumberOfInstances(GoogleCalculatorForm form) {
         numberOfInstancesInputField.sendKeys(form.getNumberOfInstances().getValue());
         return this;
     }
 
+    @Step("Select field: Operating System")
     private GooglePricingCalculatorFormPage selectOperatingSystem(GoogleCalculatorForm form) {
         operationSystemList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC,
@@ -106,6 +112,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Select field: Provisioning Model")
     private GooglePricingCalculatorFormPage selectProvisioningModel(GoogleCalculatorForm form) {
         provisioningModelList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC,
@@ -114,6 +121,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Select field: Series")
     private GooglePricingCalculatorFormPage selectSeries(GoogleCalculatorForm form) {
         seriesList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC,
@@ -122,6 +130,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Select field: Machine Type")
     private GooglePricingCalculatorFormPage selectMachineType(GoogleCalculatorForm form) {
         machineTypeList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
@@ -130,11 +139,13 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Activate checkbox 'Add GPU'")
     private GooglePricingCalculatorFormPage activateCheckboxAddGPU() {
         addGpuCheckbox.click();
         return this;
     }
 
+    @Step("Select field: GPU Type")
     private GooglePricingCalculatorFormPage selectGpuType(GoogleCalculatorForm form) {
         gpuTypeList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
@@ -142,6 +153,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Select field: Number of GPUs")
     private GooglePricingCalculatorFormPage selectNumberOfGpus(GoogleCalculatorForm form) {
         numberOfGpusList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
@@ -150,6 +162,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Select field: Local SSD")
     private GooglePricingCalculatorFormPage selectLocalSsd(GoogleCalculatorForm form) {
         localSsdList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
@@ -158,6 +171,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Select field: Datacenter Location")
     private GooglePricingCalculatorFormPage selectDataCenterLocation(GoogleCalculatorForm form) {
         datacenterLocationList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC, String.format("//*[@id='%s']",
@@ -165,14 +179,16 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         return this;
     }
 
+    @Step("Select field: Committed Usage")
     private void selectCommittedUsage(GoogleCalculatorForm form) {
         committedUsageList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC, String.format("//*[@id='%s']",
                 form.getCommittedUsage().getValue())).click();
     }
 
+    @Step ("Add selected to estimate")
     public GooglePricingCalculatorEstimatePage addToEstimate() {
-        addToEstimateButton.submit();
+        addToEstimateButton.click();
         logger.info("Created new estimate page");
         return new GooglePricingCalculatorEstimatePage(driver);
     }

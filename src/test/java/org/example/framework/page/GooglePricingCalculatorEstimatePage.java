@@ -1,5 +1,6 @@
 package org.example.framework.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,7 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
         super(driver);
     }
 
+    @Step("Get actual text from field")
     public List<String> getActualTextFromField() {
         List<String> tempElements = driver.findElements(By.xpath("//md-card-content[@id='resultBlock']//div[contains(@class,'list-item')]"))
                 .stream().map(WebElement::getText).toList();
@@ -33,6 +35,7 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
         return webElementTextList;
     }
 
+    @Step("Get sum from estimate field")
     public double getSumFromEstimateField() throws ParseException {
         String estimateSummaryString = getElementWithPresenceWait(WaitTimeouts.THREE_SEC, "//*[@id='compute']/descendant::b[contains(text(), 'Estimated Component Cost')]")
                 .getText();

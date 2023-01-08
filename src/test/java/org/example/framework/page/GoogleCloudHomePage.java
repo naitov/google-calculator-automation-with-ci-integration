@@ -1,5 +1,6 @@
 package org.example.framework.page;
 
+import io.qameta.allure.Step;
 import org.example.framework.test.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,12 +17,14 @@ public class GoogleCloudHomePage extends AbstractPage {
         super(driver);
     }
 
+    @Step("Open cloud.google.com")
     public GoogleCloudHomePage openHomePage(String url) {
         driver.get(url);
         logger.info("Opened home page");
         return this;
     }
 
+    @Step("Search for 'Google pricing calculator'")
     public GoogleCloudHomePage searchForTerm() {
         searchField.sendKeys(BaseTest.SEARCH_TERM);
         searchField.submit();
@@ -29,6 +32,7 @@ public class GoogleCloudHomePage extends AbstractPage {
         return this;
     }
 
+    @Step("Open calculator page from Search results")
     public GooglePricingCalculatorFormPage getCalculatorPageFromSearch() {
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//div[@class='gs-title']//a").click();
         logger.info("Created new calculator page");
