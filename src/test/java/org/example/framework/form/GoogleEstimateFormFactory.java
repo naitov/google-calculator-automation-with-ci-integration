@@ -10,7 +10,7 @@ import static org.example.framework.test.BaseTest.logger;
 public class GoogleEstimateFormFactory {
     private static GoogleEstimateForm estimateForm;
 
-    public static GoogleEstimateForm withDefaultFields() {
+    public static GoogleEstimateForm withEstimatesDefaultFields() {
         estimateForm = new GoogleEstimateForm(
                 DatacenterLocations.FRANKFURT.getName(),
                 ProvisioningModels.REGULAR.getName(),

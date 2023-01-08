@@ -61,30 +61,36 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         driver.switchTo().frame(iFrameElement);
     }
 
-    public void fillAllNecessaryFields(String environment, GoogleCalculatorForm form) {
-        switch (environment) {
-            case "dev" -> this.setNumberOfInstances(form)
-                    .selectDataCenterLocation(form);
-            case "staging" -> this.setNumberOfInstances(form)
-                    .selectOperatingSystem(form)
-                    .selectProvisioningModel(form)
-                    .selectSeries(form)
-                    .selectMachineType(form)
-                    .activateCheckboxAddGPU()
-                    .selectGpuType(form)
-                    .selectNumberOfGpus(form)
-                    .selectLocalSsd(form)
-                    .selectDataCenterLocation(form)
-                    .selectCommittedUsage(form);
-            case "qa" -> this.setNumberOfInstances(form)
-                    .selectOperatingSystem(form)
-                    .selectProvisioningModel(form)
-                    .selectSeries(form)
-                    .selectMachineType(form)
-                    .selectDataCenterLocation(form)
-                    .selectCommittedUsage(form);
-        }
-        logger.info(String.format("Selecting fields according to environment: %s", environment));
+    public void fillSmokeFields(GoogleCalculatorForm form) {
+        this.setNumberOfInstances(form)
+                .selectDataCenterLocation(form);
+        logger.info("Selecting fields according to Smoke scope");
+    }
+
+    public void fillMinAcceptanceFields(GoogleCalculatorForm form) {
+        this.setNumberOfInstances(form)
+                .selectOperatingSystem(form)
+                .selectProvisioningModel(form)
+                .selectSeries(form)
+                .selectMachineType(form)
+                .selectDataCenterLocation(form)
+                .selectCommittedUsage(form);
+        logger.info("Selecting fields according to Minimal acceptance test scope");
+    }
+
+    public void fillFullAcceptanceFields(GoogleCalculatorForm form) {
+        this.setNumberOfInstances(form)
+                .selectOperatingSystem(form)
+                .selectProvisioningModel(form)
+                .selectSeries(form)
+                .selectMachineType(form)
+                .activateCheckboxAddGPU()
+                .selectGpuType(form)
+                .selectNumberOfGpus(form)
+                .selectLocalSsd(form)
+                .selectDataCenterLocation(form)
+                .selectCommittedUsage(form);
+        logger.info("Selecting fields according to Full acceptance test scope");
     }
 
     private GooglePricingCalculatorFormPage setNumberOfInstances(GoogleCalculatorForm form) {

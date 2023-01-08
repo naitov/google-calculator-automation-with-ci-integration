@@ -21,17 +21,20 @@ public class BaseTest {
     public static final String HOMEPAGE_URL = "https://cloud.google.com/";
     public static final String CALCULATOR_PAGE_URL = "https://cloud.google.com/products/calculator";
     public static final String SEARCH_TERM = "Google Cloud Pricing Calculator";
-    public static final String TESTING_ENVIRONMENT = TestEnvironmentReader.getTestData("env.settings");
     public static final Logger logger = LogManager.getRootLogger();
     protected static WebDriver driver;
-    protected double expectedSum = -1d;
+
+    //TODO add Allure annotations
+    //TODO in readme: problem desc, objectives desc, solution desc, tests estimated time
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            switch (System.getProperty("browser")) {
+            switch (System.getProperty("browser").toLowerCase()) {
                 case "firefox" -> driver = new FirefoxDriver();
                 case "safari" -> driver = new SafariDriver();
-                default -> driver = new ChromeDriver();
+                case "chrome" -> driver = new ChromeDriver();
+                default -> throw new IllegalArgumentException(String.format("This test suite do not support %s",
+                        System.getProperty("browser").toLowerCase()));
             }
         }
         return driver;
@@ -39,17 +42,18 @@ public class BaseTest {
 
     @BeforeClass()
     public void webDriverManagerSetup() {
-        switch (System.getProperty("browser")) {
+        switch (System.getProperty("browser").toLowerCase()) {
             case "firefox" -> WebDriverManager.firefoxdriver().setup();
             case "safari" -> WebDriverManager.safaridriver().setup();
-            default -> WebDriverManager.chromedriver().setup();
+            case "chrome" -> WebDriverManager.chromedriver().setup();
+            default -> throw new IllegalArgumentException(String.format("This test suite do not support %s",
+                    System.getProperty("browser").toLowerCase()));
         }
     }
 
     @BeforeMethod()
     public void browserSetup() {
         getDriver();
-        setExpectedSum();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.of(2, ChronoUnit.SECONDS));
     }
@@ -58,13 +62,5 @@ public class BaseTest {
     public void browserTearDown() {
         driver.quit();
         driver = null;
-    }
-
-    private void setExpectedSum() {
-        switch (TESTING_ENVIRONMENT) {
-            case "dev" -> expectedSum = 48.92;
-            case "staging" -> expectedSum = 2275.48;
-            case "qa" -> expectedSum = 113.44;
-        }
     }
 }
