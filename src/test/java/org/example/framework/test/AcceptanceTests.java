@@ -1,5 +1,6 @@
 package org.example.framework.test;
 
+import io.qameta.allure.Step;
 import org.example.framework.form.GoogleCalculatorForm;
 import org.example.framework.form.GoogleCalculatorFormFactory;
 import org.example.framework.form.GoogleEstimateForm;
@@ -19,7 +20,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 
 public class AcceptanceTests extends BaseTest {
-    @Test(description = "Acceptance test, checks that sum in email should be the same as sum in the estimate page")
+    @Test
+    @Step("Acceptance test: Assert that sum in email should be the same as sum in the estimate page")
     public void acceptSumInEmailShouldBeEqualCalculatorSum() throws ParseException {
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
                 .openHomePage(HOMEPAGE_URL)
@@ -32,7 +34,7 @@ public class AcceptanceTests extends BaseTest {
         calculatorFormPage.fillFullAcceptanceFields(calculatorForm);
         GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage.addToEstimate();
         double expectedSum = estimatePage.getSumFromEstimateField();
-        YopmailHomePage yopmailHomePage = estimatePage.createYopmailPage();
+        YopmailHomePage yopmailHomePage = estimatePage.getYopmailPage();
         yopmailHomePage.openEmailPageInNewTab()
                 .createNewMailBoxWithRandomName()
                 .switchToEstimatePage();
@@ -42,7 +44,8 @@ public class AcceptanceTests extends BaseTest {
         assertThat("The Sum in email should be the same as the estimate sum", actualSum, is(equalTo(expectedSum)));
     }
 
-    @Test(description = "Acceptance test, checks if sum in estimate page corresponds to manual sum")
+    @Test
+    @Step("Acceptance test: Assert that sum in estimate page corresponds to manual sum")
     public void acceptActualAndExpectedSumsShouldBeEqual() throws ParseException {
         double expectedSum = 2275.48;
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
@@ -59,7 +62,8 @@ public class AcceptanceTests extends BaseTest {
         assertThat("Actual and expected sums should be equal", actualSum, equalTo(expectedSum));
     }
 
-    @Test(description = "Acceptance test, checks if fields in estimate and in calculator pages are equal")
+    @Test
+    @Step("Acceptance test: Assert that fields in estimate and in calculator pages are equal")
     public void acceptParamResultingFieldsShouldContainExpectedValues() {
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
                 .openHomePage(HOMEPAGE_URL)

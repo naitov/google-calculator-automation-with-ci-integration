@@ -48,13 +48,15 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
         return actualSum;
     }
 
-    public YopmailHomePage createYopmailPage() {
+    @Step("New yopmail.com page object")
+    public YopmailHomePage getYopmailPage() {
         String currentWindowHandle = driver.getWindowHandle();
         yopmailPage = new YopmailHomePage(driver, currentWindowHandle);
         logger.info("Created new yopmail.com page");
         return yopmailPage;
     }
 
+    @Step("Send email from google estimate page to yopmail.com")
     public GooglePricingCalculatorEstimatePage sendEmailFromPage() {
         String emailName = yopmailPage.getRandomEmailName();
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//span[text()='email']/parent::button").click();
@@ -63,6 +65,7 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
         return this;
     }
 
+    @Step("Switch to tab yopmail.com")
     public void switchToYopmail() {
         driver.switchTo().window(yopmailPage.getYopmailWindowHandle());
     }

@@ -1,5 +1,6 @@
 package org.example.framework.test;
 
+import io.qameta.allure.Step;
 import org.example.framework.form.GoogleCalculatorForm;
 import org.example.framework.form.GoogleCalculatorFormFactory;
 import org.example.framework.form.GoogleEstimateForm;
@@ -19,7 +20,8 @@ import static org.hamcrest.Matchers.hasItem;
 
 public class SmokeTests extends BaseTest {
 
-    @Test(description = "Smoke test, checks if sum in estimate page corresponds to manual sum")
+    @Test
+    @Step("Smoke test: Assert that sum in estimate page corresponds to manual sum")
     public void smokeActualAndExpectedSumsShouldBeEqual() throws ParseException {
         double expectedSum = 63.02;
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
@@ -36,7 +38,8 @@ public class SmokeTests extends BaseTest {
         assertThat("Actual and expected sums should be equal", actualSum, equalTo(expectedSum));
     }
 
-    @Test(description = "Smoke test, checks if fields in estimate and in calculator pages are equal")
+    @Test
+    @Step("Smoke test: Assert that fields in estimate and in calculator pages are equal")
     public void smokeResultingFieldsShouldContainExpectedValues() {
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
                 .openHomePage(HOMEPAGE_URL)

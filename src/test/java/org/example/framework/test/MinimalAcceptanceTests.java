@@ -1,5 +1,6 @@
 package org.example.framework.test;
 
+import io.qameta.allure.Step;
 import org.example.framework.form.GoogleCalculatorForm;
 import org.example.framework.form.GoogleCalculatorFormFactory;
 import org.example.framework.form.GoogleEstimateForm;
@@ -20,7 +21,8 @@ import static org.hamcrest.Matchers.hasItem;
 
 public class MinimalAcceptanceTests extends BaseTest {
 
-    @Test(description = "Minimal Acceptance test, checks that sum in email should be the same as sum in the estimate page")
+    @Test
+    @Step("Minimal Acceptance test: Assert that sum in email should be the same as sum in the estimate page")
     public void minAcceptParamSumInEmailShouldBeEqualCalculatorSum() throws ParseException {
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
                 .openHomePage(HOMEPAGE_URL)
@@ -33,7 +35,7 @@ public class MinimalAcceptanceTests extends BaseTest {
         calculatorFormPage.fillMinAcceptanceFields(calculatorForm);
         GooglePricingCalculatorEstimatePage estimatePage = calculatorFormPage.addToEstimate();
         double expectedSum = estimatePage.getSumFromEstimateField();
-        YopmailHomePage yopmailHomePage = estimatePage.createYopmailPage();
+        YopmailHomePage yopmailHomePage = estimatePage.getYopmailPage();
         yopmailHomePage.openEmailPageInNewTab()
                 .createNewMailBoxWithRandomName()
                 .switchToEstimatePage();
@@ -43,7 +45,8 @@ public class MinimalAcceptanceTests extends BaseTest {
         assertThat("The Sum in email should be the same as the estimate sum", actualSum, is(equalTo(expectedSum)));
     }
 
-    @Test(description = "Minimal Acceptance test, checks if sum in estimate page corresponds to manual sum")
+    @Test
+    @Step("Minimal Acceptance test: Assert that sum in estimate page corresponds to manual sum")
     public void minAcceptParamActualAndExpectedSumsShouldBeEqual() throws ParseException {
         double expectedSum = 113.44;
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
@@ -60,7 +63,8 @@ public class MinimalAcceptanceTests extends BaseTest {
         assertThat("Actual and expected sums should be equal", actualSum, equalTo(expectedSum));
     }
 
-    @Test(description = "Minimal Acceptance test, checks if fields in estimate and in calculator pages are equal")
+    @Test
+    @Step("Minimal Acceptance test: Assert that fields in estimate and in calculator pages are equal")
     public void minAcceptParamResultingFieldsShouldContainExpectedValues() {
         GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver)
                 .openHomePage(HOMEPAGE_URL)

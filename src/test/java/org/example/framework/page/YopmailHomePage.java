@@ -1,5 +1,6 @@
 package org.example.framework.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,6 +40,7 @@ public class YopmailHomePage extends AbstractPage {
 
     }
 
+    @Step("Open yopmail.com in new tab")
     public YopmailHomePage openEmailPageInNewTab() {
         driver.switchTo().newWindow(WindowType.TAB);
         driver.navigate().to("https://yopmail.com/ru/");
@@ -49,6 +51,7 @@ public class YopmailHomePage extends AbstractPage {
         return this;
     }
 
+    @Step("Create new mailbox with random name")
     public YopmailHomePage createNewMailBoxWithRandomName() {
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//a[@href='email-generator']").click();
         randomEmailName = String.format("%s@yopmail.com", getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//span[@class='genytxt']").getText());
@@ -57,6 +60,7 @@ public class YopmailHomePage extends AbstractPage {
         return this;
     }
 
+    @Step("Switch to google estimate page")
     public void switchToEstimatePage() {
         driver.switchTo().window(estimateWindowHandle);
         driver.switchTo().frame(0);
@@ -64,6 +68,7 @@ public class YopmailHomePage extends AbstractPage {
         logger.info("Switched to estimate tab");
     }
 
+    @Step("Wait for mail")
     public YopmailHomePage waitForMail() {
         while (mailCounterLabel.getText().equals("0 mail")) {
             driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
@@ -73,6 +78,7 @@ public class YopmailHomePage extends AbstractPage {
         return this;
     }
 
+    @Step("Get sum from email")
     public double getActualSum() throws ParseException {
         WebElement mailFrame = getElementWithPresenceWait(WaitTimeouts.ONE_SEC, "//iframe[@id='ifmail']");
         driver.switchTo().frame(mailFrame);
