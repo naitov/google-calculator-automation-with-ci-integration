@@ -11,10 +11,6 @@ e
 5src/test/java/org/example/framework/enums/Series.java,c/d/cd9d56d5a6d1366f1a51c78a9b04aa8cd2b1e8b9
 i
 9src/test/java/org/example/framework/enums/GpuNumbers.java,5/d/5dc295d41fa2702768b7b82df2cb8025e906cd51
-m
-=src/test/java/org/example/framework/page/YopmailHomePage.java,8/1/81a95ab96ba05d8e98898cb8855becb1d97b8756
-9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
