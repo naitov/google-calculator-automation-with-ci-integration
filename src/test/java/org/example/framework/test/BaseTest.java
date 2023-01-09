@@ -25,8 +25,6 @@ public class BaseTest {
     public static final Logger logger = LogManager.getRootLogger();
     protected static WebDriver driver;
 
-    //TODO in readme: problem desc, objectives desc, solution desc, tests estimated time
-
     @Step("New WebDriver object")
     public static WebDriver getDriver() {
         if (driver == null) {

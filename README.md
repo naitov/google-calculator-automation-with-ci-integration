@@ -25,5 +25,3 @@ For console output, log4j2 used as well.
 ### Misc
 Estimated run time of all tests - 3 Minutes.
 
-
-
