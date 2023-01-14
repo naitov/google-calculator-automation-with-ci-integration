@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.example.framework.test.BaseTest.logger;
+import static org.example.framework.utils.Logger.LOGGER;
 
 public class GooglePricingCalculatorFormPage extends AbstractPage {
 
@@ -66,7 +66,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     public void fillSmokeFields(GoogleCalculatorForm form) {
         this.setNumberOfInstances(form)
                 .selectDataCenterLocation(form);
-        logger.info("Selecting fields according to Smoke scope");
+        LOGGER.info("Selecting fields according to Smoke scope");
     }
 
 
@@ -78,7 +78,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
                 .selectMachineType(form)
                 .selectDataCenterLocation(form)
                 .selectCommittedUsage(form);
-        logger.info("Selecting fields according to Minimal acceptance test scope");
+        LOGGER.info("Selecting fields according to Minimal acceptance test scope");
     }
 
 
@@ -94,7 +94,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
                 .selectLocalSsd(form)
                 .selectDataCenterLocation(form)
                 .selectCommittedUsage(form);
-        logger.info("Selecting fields according to Full acceptance test scope");
+        LOGGER.info("Selecting fields according to Full acceptance test scope");
     }
 
     @Step("Select field: Number Of Instances")
@@ -186,10 +186,10 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
                 form.getCommittedUsage().getValue())).click();
     }
 
-    @Step ("Add selected to estimate")
+    @Step("Add selected to estimate")
     public GooglePricingCalculatorEstimatePage addToEstimate() {
         addToEstimateButton.click();
-        logger.info("Created new estimate page");
+        LOGGER.info("Created new estimate page");
         return new GooglePricingCalculatorEstimatePage(driver);
     }
 }

@@ -1,11 +1,9 @@
 package org.example.framework.form;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.example.framework.enums.*;
 
-@Getter
-@Setter
+@Data
 public class GoogleCalculatorForm {
     private NumberOfInstances numberOfInstances;
     private OperatingSystems operatingSystem;

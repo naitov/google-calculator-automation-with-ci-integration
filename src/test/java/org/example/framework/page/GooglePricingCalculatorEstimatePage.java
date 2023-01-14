@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.framework.test.BaseTest.logger;
+import static org.example.framework.utils.Logger.LOGGER;
 
 public class GooglePricingCalculatorEstimatePage extends AbstractPage {
     private double actualSum = -1.0;
@@ -52,7 +52,7 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
     public YopmailHomePage getYopmailPage() {
         String currentWindowHandle = driver.getWindowHandle();
         yopmailPage = new YopmailHomePage(driver, currentWindowHandle);
-        logger.info("Created new yopmail.com page");
+        LOGGER.info("Created new yopmail.com page");
         return yopmailPage;
     }
 

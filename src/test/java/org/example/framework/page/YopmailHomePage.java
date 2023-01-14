@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.framework.test.BaseTest.logger;
+import static org.example.framework.utils.Logger.LOGGER;
 
 public class YopmailHomePage extends AbstractPage {
     private final String estimateWindowHandle;
@@ -45,7 +45,7 @@ public class YopmailHomePage extends AbstractPage {
         driver.switchTo().newWindow(WindowType.TAB);
         driver.navigate().to("https://yopmail.com/ru/");
         yopmailWindowHandle = driver.getWindowHandle();
-        logger.info("Switched to yopmail tab");
+        LOGGER.info("Switched to yopmail tab");
         new WebDriverWait(driver, Duration.of(10, ChronoUnit.SECONDS))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='accept']"))).click();
         return this;
@@ -56,7 +56,7 @@ public class YopmailHomePage extends AbstractPage {
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//a[@href='email-generator']").click();
         randomEmailName = String.format("%s@yopmail.com", getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//span[@class='genytxt']").getText());
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//button[@onclick='egengo();']").click();
-        logger.info("Created new mailbox with random name");
+        LOGGER.info("Created new mailbox with random name");
         return this;
     }
 
@@ -65,7 +65,7 @@ public class YopmailHomePage extends AbstractPage {
         driver.switchTo().window(estimateWindowHandle);
         driver.switchTo().frame(0);
         driver.switchTo().frame(iFrameElement);
-        logger.info("Switched to estimate tab");
+        LOGGER.info("Switched to estimate tab");
     }
 
     @Step("Wait for mail")
@@ -73,7 +73,7 @@ public class YopmailHomePage extends AbstractPage {
         while (mailCounterLabel.getText().equals("0 mail")) {
             driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
             getElementWithClickableWait(WaitTimeouts.SIXTY_SEC, "//button[@id='refresh']").click();
-            logger.info("Waiting for email from google");
+            LOGGER.info("Waiting for email from google");
         }
         return this;
     }
@@ -90,7 +90,7 @@ public class YopmailHomePage extends AbstractPage {
             NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
             parsedSumFromEmail = numberFormat.parse(matcher.group()).doubleValue();
         }
-        logger.info(String.format("Sum in email = %s", parsedSumFromEmail));
+        LOGGER.info(String.format("Sum in email = %s", parsedSumFromEmail));
         return parsedSumFromEmail;
     }
 

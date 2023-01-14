@@ -2,7 +2,7 @@ package org.example.framework.form;
 
 import org.example.framework.enums.*;
 
-import static org.example.framework.test.BaseTest.logger;
+import static org.example.framework.utils.Logger.LOGGER;
 
 public class GoogleCalculatorFormFactory {
     private static GoogleCalculatorForm form;
@@ -11,7 +11,7 @@ public class GoogleCalculatorFormFactory {
         form = new GoogleCalculatorForm();
         form.setNumberOfInstances(NumberOfInstances.ONE);
         form.setDatacenterLocation(DatacenterLocations.FRANKFURT);
-        logger.info("Created new calculator form with minimum elements");
+        LOGGER.info("Created new calculator form with minimum elements");
         return form;
     }
 
@@ -27,7 +27,7 @@ public class GoogleCalculatorFormFactory {
         form.setLocalSsd(SsdNumbers.TWO_SSD);
         form.setDatacenterLocation(DatacenterLocations.FRANKFURT);
         form.setCommittedUsage(CommittedUsages.ONE_YEAR);
-        logger.info("Created new calculator form with all possible elements");
+        LOGGER.info("Created new calculator form with all possible elements");
         return form;
     }
 
@@ -43,7 +43,7 @@ public class GoogleCalculatorFormFactory {
         form.setLocalSsd(SsdNumbers.ONE_SSD);
         form.setDatacenterLocation(DatacenterLocations.WARSAW);
         form.setCommittedUsage(CommittedUsages.THREE_YEARS);
-        logger.info("Created new calculator form with all elements without GPU");
+        LOGGER.info("Created new calculator form with all elements without GPU");
         return form;
     }
 }

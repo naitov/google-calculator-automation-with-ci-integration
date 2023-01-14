@@ -1,6 +1,4 @@
 
-n
->src/test/java/org/example/framework/enums/CommittedUsages.java,e/1/e1a71092e1507c279d4af4f2b470278941c27c00
 r
 Bsrc/test/java/org/example/framework/enums/DatacenterLocations.java,8/4/84a5bfd5a1764bad51e5b22e1fb96814384613e1
 p
@@ -11,9 +9,6 @@ e
 5src/test/java/org/example/framework/enums/Series.java,c/d/cd9d56d5a6d1366f1a51c78a9b04aa8cd2b1e8b9
 i
 9src/test/java/org/example/framework/enums/GpuNumbers.java,5/d/5dc295d41fa2702768b7b82df2cb8025e906cd51
-:
-
-.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
 i
 9src/test/java/org/example/framework/enums/SsdNumbers.java,8/c/8cd415a4bbf836e922799d14dda569691531beb5
 o
@@ -22,13 +17,3 @@ g
 7src/test/java/org/example/framework/enums/GpuTypes.java,9/8/98872ae896a8454b70225e42fc6479e37538b077
 k
 ;src/test/java/org/example/framework/enums/MachineTypes.java,3/8/38afdc282029c6869e06f2082b1d4572b7c54147
-r
-Bsrc/test/java/org/example/framework/form/GoogleCalculatorForm.java,0/4/04a87b0731c3dc20dcd1f0cc938c516ae991e529
-p
-@src/test/java/org/example/framework/form/GoogleEstimateForm.java,b/0/b00955cb6a9a48f5e885fe882d579c521d9b75aa
-n
->src/test/java/org/example/framework/utils/ScreenshotSaver.java,6/c/6c7c3417b9e05e4a8c63461348db53d4ea93d690
-y
-Isrc/test/java/org/example/framework/form/GoogleCalculatorFormFactory.java,8/d/8d3bb181d118ae4718628ae7116db0ce3b3937c5
-w
-Gsrc/test/java/org/example/framework/form/GoogleEstimateFormFactory.java,0/3/0330da325b2c80abb2d466859b24bc9d71815315

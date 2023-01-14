@@ -1,6 +1,7 @@
 package org.example.framework.page;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,14 +21,15 @@ abstract class AbstractPage {
     }
 
     public WebElement getElementWithPresenceWait(WaitTimeouts timeout, String xpath) {
-        return new WebDriverWait(driver, timeout.duration).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        return new WebDriverWait(driver, timeout.getDuration()).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 
     public WebElement getElementWithClickableWait(WaitTimeouts timeout, String xpath) {
-        return new WebDriverWait(driver, timeout.duration).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        return new WebDriverWait(driver, timeout.getDuration()).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
     }
 
     @AllArgsConstructor
+    @Getter
     enum WaitTimeouts {
         ONE_SEC(Duration.of(1, ChronoUnit.SECONDS)),
         THREE_SEC(Duration.of(3, ChronoUnit.SECONDS)),

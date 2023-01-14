@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.example.framework.test.BaseTest.logger;
+import static org.example.framework.utils.Logger.LOGGER;
 
 @NoArgsConstructor
 public class ScreenshotSaver implements ITestListener {
@@ -71,9 +71,9 @@ public class ScreenshotSaver implements ITestListener {
                     + getCurrentTimeAsString() +
                     ".png");
             FileUtils.copyFile(screenshotFile, destinationFile);
-            logger.error(String.format("Saved screenshot %s at %s", screenshotFile.getName(), pathName));
+            LOGGER.warn(String.format("Saved screenshot %s at %s", screenshotFile.getName(), pathName));
         } catch (IOException e) {
-            logger.error("Failed to save screenshot: " + e.getLocalizedMessage());
+            LOGGER.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }
     }
 

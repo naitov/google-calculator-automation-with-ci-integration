@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.example.framework.test.BaseTest.logger;
+import static org.example.framework.utils.Logger.LOGGER;
 
 public class GoogleCloudHomePage extends AbstractPage {
 
@@ -20,7 +20,7 @@ public class GoogleCloudHomePage extends AbstractPage {
     @Step("Open cloud.google.com")
     public GoogleCloudHomePage openHomePage(String url) {
         driver.get(url);
-        logger.info("Opened home page");
+        LOGGER.info("Opened home page");
         return this;
     }
 
@@ -28,14 +28,14 @@ public class GoogleCloudHomePage extends AbstractPage {
     public GoogleCloudHomePage searchForTerm() {
         searchField.sendKeys(BaseTest.SEARCH_TERM);
         searchField.submit();
-        logger.info(String.format("Searching for: \"%s\"", BaseTest.SEARCH_TERM));
+        LOGGER.info(String.format("Searching for: \"%s\"", BaseTest.SEARCH_TERM));
         return this;
     }
 
     @Step("Open calculator page from Search results")
     public GooglePricingCalculatorFormPage getCalculatorPageFromSearch() {
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//div[@class='gs-title']//a").click();
-        logger.info("Created new calculator page");
+        LOGGER.info("Created new calculator page");
         return new GooglePricingCalculatorFormPage(driver);
     }
 }
