@@ -1,7 +1,7 @@
-package org.example.framework.form;
+package org.example.framework.enitities.forms;
 
 import lombok.Data;
-import org.example.framework.enums.*;
+import org.example.framework.enitities.enums.*;
 
 @Data
 public class GoogleCalculatorForm {

@@ -1,4 +1,4 @@
-package org.example.framework.page;
+package org.example.framework.pages;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-abstract class AbstractPage {
+public abstract class AbstractPage {
     protected final WebDriver driver;
 
     public AbstractPage(WebDriver driver) {
@@ -30,7 +30,7 @@ abstract class AbstractPage {
 
     @AllArgsConstructor
     @Getter
-    enum WaitTimeouts {
+    public enum WaitTimeouts {
         ONE_SEC(Duration.of(1, ChronoUnit.SECONDS)),
         THREE_SEC(Duration.of(3, ChronoUnit.SECONDS)),
         TEN_SEC(Duration.of(10, ChronoUnit.SECONDS)),

@@ -1,9 +1,12 @@
-package org.example.framework.page;
+package org.example.framework.pages.google;
 
 import io.qameta.allure.Step;
+import org.example.framework.pages.AbstractPage;
+import org.example.framework.pages.yopmail.YopmailHomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -18,13 +21,14 @@ import static org.example.framework.utils.Logger.LOGGER;
 public class GooglePricingCalculatorEstimatePage extends AbstractPage {
     private double actualSum = -1.0;
     private YopmailHomePage yopmailPage;
+    private String yopmailWindowHandle;
 
     public GooglePricingCalculatorEstimatePage(WebDriver driver) {
         super(driver);
     }
 
     @Step("Get actual text from field")
-    public List<String> getActualTextFromField() {
+    public List<String> getTextFromFieldsInEstimate() {
         List<String> tempElements = driver.findElements(By.xpath("//md-card-content[@id='resultBlock']//div[contains(@class,'list-item')]"))
                 .stream().map(WebElement::getText).toList();
         List<String> webElementTextList = new ArrayList<>();
@@ -36,7 +40,7 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
     }
 
     @Step("Get sum from estimate field")
-    public double getSumFromEstimateField() throws ParseException {
+    public double getSumFromEstimate() throws ParseException {
         String estimateSummaryString = getElementWithPresenceWait(WaitTimeouts.THREE_SEC, "//*[@id='compute']/descendant::b[contains(text(), 'Estimated Component Cost')]")
                 .getText();
         Pattern pattern = Pattern.compile("([0-9,.]{2,20})");
@@ -48,17 +52,20 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
         return actualSum;
     }
 
-    @Step("New yopmail.com page object")
-    public YopmailHomePage getYopmailPage() {
+    @Step("New yopmail.com page")
+    public YopmailHomePage openYopmailPageInNewTab() {
         String currentWindowHandle = driver.getWindowHandle();
         yopmailPage = new YopmailHomePage(driver, currentWindowHandle);
-        LOGGER.info("Created new yopmail.com page");
+        driver.switchTo().newWindow(WindowType.TAB);
+        driver.navigate().to("https://yopmail.com/ru/");
+        yopmailWindowHandle = driver.getWindowHandle();
+        LOGGER.info("Switched to yopmail tab");
         return yopmailPage;
     }
 
     @Step("Send email from google estimate page to yopmail.com")
-    public GooglePricingCalculatorEstimatePage sendEmailFromPage() {
-        String emailName = yopmailPage.getRandomEmailName();
+    public GooglePricingCalculatorEstimatePage sendEmail() {
+        String emailName = yopmailPage.getRandomEmailNameFromYopmailPage();
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//span[text()='email']/parent::button").click();
         getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//input[@type='email']").sendKeys(emailName);
         getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//button[@aria-label='Send Email']").click();
@@ -67,6 +74,7 @@ public class GooglePricingCalculatorEstimatePage extends AbstractPage {
 
     @Step("Switch to tab yopmail.com")
     public void switchToYopmail() {
-        driver.switchTo().window(yopmailPage.getYopmailWindowHandle());
+        driver.switchTo().window(yopmailWindowHandle);
     }
+
 }

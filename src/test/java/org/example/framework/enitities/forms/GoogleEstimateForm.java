@@ -1,4 +1,4 @@
-package org.example.framework.form;
+package org.example.framework.enitities.forms;
 
 import lombok.Getter;
 

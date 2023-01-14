@@ -3,8 +3,8 @@
 <suite name="Minimal Acceptance Tests" verbose="1" >
     <test name="Minimal Acceptance Tests">
         <classes>
-            <class name="org.example.framework.test.SmokeTests" />
-            <class name="org.example.framework.test.MinimalAcceptanceTests" />
+            <class name="org.example.framework.tests.SmokeTests" />
+            <class name="org.example.framework.tests.MinimalAcceptanceTests" />
         </classes>
     </test>
 </suite>

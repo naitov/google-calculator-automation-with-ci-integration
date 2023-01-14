@@ -1,13 +1,10 @@
-package org.example.framework.page;
+package org.example.framework.pages.yopmail;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
+import org.example.framework.pages.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -30,8 +27,8 @@ public class YopmailHomePage extends AbstractPage {
 
     @FindBy(xpath = "//iframe[@id='myFrame']")
     private WebElement iFrameElement;
-    private String randomEmailName;
-    private String yopmailWindowHandle;
+    private String randomEmailNameFromYopmailPage;
+
 
 
     public YopmailHomePage(WebDriver driver, String estimateWindowHandle) {
@@ -41,35 +38,32 @@ public class YopmailHomePage extends AbstractPage {
     }
 
     @Step("Open yopmail.com in new tab")
-    public YopmailHomePage openEmailPageInNewTab() {
-        driver.switchTo().newWindow(WindowType.TAB);
-        driver.navigate().to("https://yopmail.com/ru/");
-        yopmailWindowHandle = driver.getWindowHandle();
-        LOGGER.info("Switched to yopmail tab");
-        new WebDriverWait(driver, Duration.of(10, ChronoUnit.SECONDS))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='accept']"))).click();
+    public YopmailHomePage acceptCookies() {
+        getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//button[@id='accept']")
+                .click();
         return this;
     }
 
     @Step("Create new mailbox with random name")
     public YopmailHomePage createNewMailBoxWithRandomName() {
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//a[@href='email-generator']").click();
-        randomEmailName = String.format("%s@yopmail.com", getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//span[@class='genytxt']").getText());
+        randomEmailNameFromYopmailPage = String.format("%s@yopmail.com", getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//span[@class='genytxt']").getText());
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//button[@onclick='egengo();']").click();
         LOGGER.info("Created new mailbox with random name");
         return this;
     }
 
     @Step("Switch to google estimate page")
-    public void switchToEstimatePage() {
+    public YopmailHomePage switchToEstimatePage() {
         driver.switchTo().window(estimateWindowHandle);
         driver.switchTo().frame(0);
         driver.switchTo().frame(iFrameElement);
         LOGGER.info("Switched to estimate tab");
+        return this;
     }
 
     @Step("Wait for mail")
-    public YopmailHomePage waitForMail() {
+    public YopmailHomePage waitForEmail() {
         while (mailCounterLabel.getText().equals("0 mail")) {
             driver.manage().timeouts().implicitlyWait(Duration.of(30, ChronoUnit.SECONDS));
             getElementWithClickableWait(WaitTimeouts.SIXTY_SEC, "//button[@id='refresh']").click();
@@ -79,7 +73,7 @@ public class YopmailHomePage extends AbstractPage {
     }
 
     @Step("Get sum from email")
-    public double getActualSum() throws ParseException {
+    public double getActualSumFromEmail() throws ParseException {
         WebElement mailFrame = getElementWithPresenceWait(WaitTimeouts.ONE_SEC, "//iframe[@id='ifmail']");
         driver.switchTo().frame(mailFrame);
         String emailCost = estimatedMonthlyCostField.getText();
@@ -94,11 +88,9 @@ public class YopmailHomePage extends AbstractPage {
         return parsedSumFromEmail;
     }
 
-    public String getRandomEmailName() {
-        return randomEmailName;
+    public String getRandomEmailNameFromYopmailPage() {
+        return randomEmailNameFromYopmailPage;
     }
 
-    public String getYopmailWindowHandle() {
-        return yopmailWindowHandle;
-    }
+
 }

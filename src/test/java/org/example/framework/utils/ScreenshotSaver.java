@@ -2,7 +2,7 @@ package org.example.framework.utils;
 
 import lombok.NoArgsConstructor;
 import org.apache.commons.io.FileUtils;
-import org.example.framework.test.BaseTest;
+import org.example.framework.tests.BaseTest;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;

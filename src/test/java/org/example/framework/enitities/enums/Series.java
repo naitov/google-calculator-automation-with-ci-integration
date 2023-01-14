@@ -1,13 +1,13 @@
-package org.example.framework.enums;
+package org.example.framework.enitities.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum NumberOfInstances {
-    ONE("1", "1"),
-    FOUR("4", "4");
+public enum Series {
+    N1("N1", "n1"),
+    E2("E2", "e2");
 
     private final String name;
     private final String value;

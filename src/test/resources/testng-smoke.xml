@@ -3,7 +3,7 @@
 <suite name="Smoke Tests" verbose="1" >
     <test name="Smoke Tests">
         <classes>
-            <class name="org.example.framework.test.SmokeTests" />
+            <class name="org.example.framework.tests.SmokeTests" />
         </classes>
     </test>
 </suite>

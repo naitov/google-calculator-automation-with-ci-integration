@@ -1,16 +1,18 @@
-package org.example.framework.form;
+package org.example.framework.testdata;
 
-import org.example.framework.enums.DatacenterLocations;
-import org.example.framework.enums.MachineTypes;
-import org.example.framework.enums.OperatingSystems;
-import org.example.framework.enums.ProvisioningModels;
+import org.example.framework.enitities.enums.DatacenterLocations;
+import org.example.framework.enitities.enums.MachineTypes;
+import org.example.framework.enitities.enums.OperatingSystems;
+import org.example.framework.enitities.enums.ProvisioningModels;
+import org.example.framework.enitities.forms.GoogleCalculatorForm;
+import org.example.framework.enitities.forms.GoogleEstimateForm;
 
 import static org.example.framework.utils.Logger.LOGGER;
 
-public class GoogleEstimateFormFactory {
+public class EstimateFormFactory {
     private static GoogleEstimateForm estimateForm;
 
-    public static GoogleEstimateForm withEstimatesDefaultFields() {
+    public static GoogleEstimateForm getEstimatesDefaultFields() {
         estimateForm = new GoogleEstimateForm(
                 DatacenterLocations.FRANKFURT.getName(),
                 ProvisioningModels.REGULAR.getName(),
@@ -20,7 +22,7 @@ public class GoogleEstimateFormFactory {
         return estimateForm;
     }
 
-    public static GoogleEstimateForm withUserFilledFields(GoogleCalculatorForm form) {
+    public static GoogleEstimateForm getUserFilledFields(GoogleCalculatorForm form) {
         estimateForm = new GoogleEstimateForm(
                 form.getDatacenterLocation().getName(),
                 form.getCommittedUsage().getName(),

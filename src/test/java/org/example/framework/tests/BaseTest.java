@@ -1,4 +1,4 @@
-package org.example.framework.test;
+package org.example.framework.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
@@ -17,9 +17,6 @@ import java.time.temporal.ChronoUnit;
 
 @Listeners({ScreenshotSaver.class})
 public class BaseTest {
-    public static final String HOMEPAGE_URL = "https://cloud.google.com/";
-    public static final String CALCULATOR_PAGE_URL = "https://cloud.google.com/products/calculator";
-    public static final String SEARCH_TERM = "Google Cloud Pricing Calculator";
     protected static WebDriver driver;
 
     @Step("New WebDriver object")

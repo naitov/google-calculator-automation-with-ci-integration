@@ -1,7 +1,10 @@
-package org.example.framework.page;
+package org.example.framework.pages.google;
 
 import io.qameta.allure.Step;
-import org.example.framework.form.GoogleCalculatorForm;
+import lombok.Getter;
+import org.example.framework.testdata.CalculatorFormFactory;
+import org.example.framework.enitities.forms.GoogleCalculatorForm;
+import org.example.framework.pages.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +12,8 @@ import org.openqa.selenium.support.FindBy;
 import static org.example.framework.utils.Logger.LOGGER;
 
 public class GooglePricingCalculatorFormPage extends AbstractPage {
+    @Getter
+    private GoogleCalculatorForm calculatorForm;
 
     @FindBy(xpath = "//iframe[@id='myFrame']")
     private WebElement iFrameElement;
@@ -56,45 +61,52 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
         super(driver);
     }
 
-    public void setupFormPage() {
+
+    private void setupFormPage() {
         cookieOkButton.click();
         driver.switchTo().frame(0);
         driver.switchTo().frame(iFrameElement);
     }
 
-
-    public void fillSmokeFields(GoogleCalculatorForm form) {
-        this.setNumberOfInstances(form)
-                .selectDataCenterLocation(form);
+    public GooglePricingCalculatorFormPage fillSmokeFields() {
+        setupFormPage();
+        calculatorForm = CalculatorFormFactory.getCalcFormWithMinimumElements();
+        this.setNumberOfInstances(calculatorForm)
+                .selectDataCenterLocation(calculatorForm);
         LOGGER.info("Selecting fields according to Smoke scope");
+        return this;
     }
 
-
-    public void fillMinAcceptanceFields(GoogleCalculatorForm form) {
-        this.setNumberOfInstances(form)
-                .selectOperatingSystem(form)
-                .selectProvisioningModel(form)
-                .selectSeries(form)
-                .selectMachineType(form)
-                .selectDataCenterLocation(form)
-                .selectCommittedUsage(form);
+    public GooglePricingCalculatorFormPage fillMinAcceptanceFields() {
+        setupFormPage();
+        calculatorForm = CalculatorFormFactory.getCalcFormWithAllElementsExcludeGpu();
+        this.setNumberOfInstances(calculatorForm)
+                .selectOperatingSystem(calculatorForm)
+                .selectProvisioningModel(calculatorForm)
+                .selectSeries(calculatorForm)
+                .selectMachineType(calculatorForm)
+                .selectDataCenterLocation(calculatorForm)
+                .selectCommittedUsage(calculatorForm);
         LOGGER.info("Selecting fields according to Minimal acceptance test scope");
+        return this;
     }
 
-
-    public void fillFullAcceptanceFields(GoogleCalculatorForm form) {
-        this.setNumberOfInstances(form)
-                .selectOperatingSystem(form)
-                .selectProvisioningModel(form)
-                .selectSeries(form)
-                .selectMachineType(form)
+    public GooglePricingCalculatorFormPage fillFullAcceptanceFields() {
+        setupFormPage();
+        calculatorForm = CalculatorFormFactory.getCalcFormWithAllElements();
+        this.setNumberOfInstances(calculatorForm)
+                .selectOperatingSystem(calculatorForm)
+                .selectProvisioningModel(calculatorForm)
+                .selectSeries(calculatorForm)
+                .selectMachineType(calculatorForm)
                 .activateCheckboxAddGPU()
-                .selectGpuType(form)
-                .selectNumberOfGpus(form)
-                .selectLocalSsd(form)
-                .selectDataCenterLocation(form)
-                .selectCommittedUsage(form);
+                .selectGpuType(calculatorForm)
+                .selectNumberOfGpus(calculatorForm)
+                .selectLocalSsd(calculatorForm)
+                .selectDataCenterLocation(calculatorForm)
+                .selectCommittedUsage(calculatorForm);
         LOGGER.info("Selecting fields according to Full acceptance test scope");
+        return this;
     }
 
     @Step("Select field: Number Of Instances")
@@ -187,7 +199,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Add selected to estimate")
-    public GooglePricingCalculatorEstimatePage addToEstimate() {
+    public GooglePricingCalculatorEstimatePage submitForm() {
         addToEstimateButton.click();
         LOGGER.info("Created new estimate page");
         return new GooglePricingCalculatorEstimatePage(driver);

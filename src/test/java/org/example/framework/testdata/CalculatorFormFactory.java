@@ -1,17 +1,21 @@
-package org.example.framework.form;
+package org.example.framework.testdata;
 
-import org.example.framework.enums.*;
+import org.example.framework.enitities.enums.*;
+import org.example.framework.enitities.forms.GoogleCalculatorForm;
 
 import static org.example.framework.utils.Logger.LOGGER;
 
-public class GoogleCalculatorFormFactory {
+public class CalculatorFormFactory {
     private static GoogleCalculatorForm form;
 
     public static GoogleCalculatorForm getCalcFormWithMinimumElements() {
         form = new GoogleCalculatorForm();
         form.setNumberOfInstances(NumberOfInstances.ONE);
         form.setDatacenterLocation(DatacenterLocations.FRANKFURT);
-        LOGGER.info("Created new calculator form with minimum elements");
+        LOGGER.info("""
+                Setting new form:
+                Number of instances: 1
+                Datacenter location: Frankfurt""");
         return form;
     }
 
@@ -27,7 +31,18 @@ public class GoogleCalculatorFormFactory {
         form.setLocalSsd(SsdNumbers.TWO_SSD);
         form.setDatacenterLocation(DatacenterLocations.FRANKFURT);
         form.setCommittedUsage(CommittedUsages.ONE_YEAR);
-        LOGGER.info("Created new calculator form with all possible elements");
+        LOGGER.info("""
+                Setting new form:
+                Number of instances: 4
+                Operating system: Free
+                Provisioning model: Regular
+                Series: N1
+                Machine type: N1 Standard 8
+                GPU type: Nvidia p4
+                Number of GPU: 1
+                Number of SSD: 2
+                Datacenter location: Frankfurt
+                Committed usage: 1 year""");
         return form;
     }
 
@@ -43,7 +58,16 @@ public class GoogleCalculatorFormFactory {
         form.setLocalSsd(SsdNumbers.ONE_SSD);
         form.setDatacenterLocation(DatacenterLocations.WARSAW);
         form.setCommittedUsage(CommittedUsages.THREE_YEARS);
-        LOGGER.info("Created new calculator form with all elements without GPU");
+        LOGGER.info("""
+                Setting new form:
+                Number of instances: 4
+                Operating system: Free
+                Provisioning model: Regular
+                Series: E2
+                Machine type: E2 Standard 2
+                Number of SSD: 1
+                Datacenter location: Warsaw
+                Committed usage: 3 years""");
         return form;
     }
 }
