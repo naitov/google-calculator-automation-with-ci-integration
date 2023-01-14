@@ -4,7 +4,13 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/
+/.idea/
+.idea/**/sonarlint/
+.idea_modules/
+/.idea/libraries/aspectj_aspectjweaver.xml
+/.idea/jarRepositories.xml
+/.idea/uiDesigner.xml
+out/
 *.iws
 *.iml
 *.ipr
