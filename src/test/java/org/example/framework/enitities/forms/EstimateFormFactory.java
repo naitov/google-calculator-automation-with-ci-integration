@@ -1,11 +1,9 @@
-package org.example.framework.testdata;
+package org.example.framework.enitities.forms;
 
 import org.example.framework.enitities.enums.DatacenterLocations;
 import org.example.framework.enitities.enums.MachineTypes;
 import org.example.framework.enitities.enums.OperatingSystems;
 import org.example.framework.enitities.enums.ProvisioningModels;
-import org.example.framework.enitities.forms.GoogleCalculatorForm;
-import org.example.framework.enitities.forms.GoogleEstimateForm;
 
 import static org.example.framework.utils.Logger.LOGGER;
 

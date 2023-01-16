@@ -1,4 +1,4 @@
-package org.example.framework.testdata;
+package org.example.framework.models;
 
 public class Constants {
     public static final String HOMEPAGE_URL = "https://cloud.google.com/";

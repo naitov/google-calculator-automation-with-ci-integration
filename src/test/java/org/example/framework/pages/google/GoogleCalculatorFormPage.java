@@ -1,25 +1,20 @@
 package org.example.framework.pages.google;
 
 import io.qameta.allure.Step;
-import lombok.Getter;
-import org.example.framework.testdata.CalculatorFormFactory;
 import org.example.framework.enitities.forms.GoogleCalculatorForm;
 import org.example.framework.pages.AbstractPage;
+import org.example.framework.tests.steps.EstimatePageSteps;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import static org.example.framework.utils.Logger.LOGGER;
 
-public class GooglePricingCalculatorFormPage extends AbstractPage {
-    @Getter
-    private GoogleCalculatorForm calculatorForm;
+public class GoogleCalculatorFormPage extends AbstractPage {
 
     @FindBy(xpath = "//iframe[@id='myFrame']")
     private WebElement iFrameElement;
-
-    @FindBy(xpath = "//button[@class='devsite-snackbar-action']")
-    private WebElement cookieOkButton;
 
     @FindBy(xpath = "//input[@name='quantity']")
     private WebElement numberOfInstancesInputField;
@@ -57,66 +52,66 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     @FindBy(xpath = "//button[@aria-label='Add to Estimate']")
     private WebElement addToEstimateButton;
 
-    public GooglePricingCalculatorFormPage(WebDriver driver) {
+    public GoogleCalculatorFormPage(WebDriver driver) {
         super(driver);
     }
 
-
-    private void setupFormPage() {
-        cookieOkButton.click();
+    private void getInIframe() {
+        try {
+            getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//button[@class='devsite-snackbar-action']").click();
+        } catch (TimeoutException e) {
+            LOGGER.warn(String.format("Cookies alert window is missing, caught exception, %s", e.getMessage()));
+        }
         driver.switchTo().frame(0);
         driver.switchTo().frame(iFrameElement);
     }
 
-    public GooglePricingCalculatorFormPage fillSmokeFields() {
-        setupFormPage();
-        calculatorForm = CalculatorFormFactory.getCalcFormWithMinimumElements();
-        this.setNumberOfInstances(calculatorForm)
-                .selectDataCenterLocation(calculatorForm);
+    public GoogleCalculatorFormPage fillSmokeFields(GoogleCalculatorForm form) {
+        getInIframe();
+        this.setNumberOfInstances(form)
+                .selectDataCenterLocation(form);
         LOGGER.info("Selecting fields according to Smoke scope");
         return this;
     }
 
-    public GooglePricingCalculatorFormPage fillMinAcceptanceFields() {
-        setupFormPage();
-        calculatorForm = CalculatorFormFactory.getCalcFormWithAllElementsExcludeGpu();
-        this.setNumberOfInstances(calculatorForm)
-                .selectOperatingSystem(calculatorForm)
-                .selectProvisioningModel(calculatorForm)
-                .selectSeries(calculatorForm)
-                .selectMachineType(calculatorForm)
-                .selectDataCenterLocation(calculatorForm)
-                .selectCommittedUsage(calculatorForm);
+    public GoogleCalculatorFormPage fillMinAcceptanceFields(GoogleCalculatorForm form) {
+        getInIframe();
+        this.setNumberOfInstances(form)
+                .selectOperatingSystem(form)
+                .selectProvisioningModel(form)
+                .selectSeries(form)
+                .selectMachineType(form)
+                .selectDataCenterLocation(form)
+                .selectCommittedUsage(form);
         LOGGER.info("Selecting fields according to Minimal acceptance test scope");
         return this;
     }
 
-    public GooglePricingCalculatorFormPage fillFullAcceptanceFields() {
-        setupFormPage();
-        calculatorForm = CalculatorFormFactory.getCalcFormWithAllElements();
-        this.setNumberOfInstances(calculatorForm)
-                .selectOperatingSystem(calculatorForm)
-                .selectProvisioningModel(calculatorForm)
-                .selectSeries(calculatorForm)
-                .selectMachineType(calculatorForm)
+    public GoogleCalculatorFormPage fillFullAcceptanceFields(GoogleCalculatorForm form) {
+        getInIframe();
+        this.setNumberOfInstances(form)
+                .selectOperatingSystem(form)
+                .selectProvisioningModel(form)
+                .selectSeries(form)
+                .selectMachineType(form)
                 .activateCheckboxAddGPU()
-                .selectGpuType(calculatorForm)
-                .selectNumberOfGpus(calculatorForm)
-                .selectLocalSsd(calculatorForm)
-                .selectDataCenterLocation(calculatorForm)
-                .selectCommittedUsage(calculatorForm);
+                .selectGpuType(form)
+                .selectNumberOfGpus(form)
+                .selectLocalSsd(form)
+                .selectDataCenterLocation(form)
+                .selectCommittedUsage(form);
         LOGGER.info("Selecting fields according to Full acceptance test scope");
         return this;
     }
 
     @Step("Select field: Number Of Instances")
-    private GooglePricingCalculatorFormPage setNumberOfInstances(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage setNumberOfInstances(GoogleCalculatorForm form) {
         numberOfInstancesInputField.sendKeys(form.getNumberOfInstances().getValue());
         return this;
     }
 
     @Step("Select field: Operating System")
-    private GooglePricingCalculatorFormPage selectOperatingSystem(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectOperatingSystem(GoogleCalculatorForm form) {
         operationSystemList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC,
                 String.format("//md-option[@value='%s']", form.getOperatingSystem().getValue()))
@@ -125,7 +120,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Select field: Provisioning Model")
-    private GooglePricingCalculatorFormPage selectProvisioningModel(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectProvisioningModel(GoogleCalculatorForm form) {
         provisioningModelList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC,
                 String.format("//md-option[@value='%s']", form.getProvisioningModel().getValue()))
@@ -134,7 +129,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Select field: Series")
-    private GooglePricingCalculatorFormPage selectSeries(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectSeries(GoogleCalculatorForm form) {
         seriesList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC,
                 String.format("//md-option[@value='%s']", form.getSeries().getValue()))
@@ -143,7 +138,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Select field: Machine Type")
-    private GooglePricingCalculatorFormPage selectMachineType(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectMachineType(GoogleCalculatorForm form) {
         machineTypeList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
                 String.format("//*[@value='%s']", form.getMachineType().getValue()))
@@ -152,13 +147,13 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Activate checkbox 'Add GPU'")
-    private GooglePricingCalculatorFormPage activateCheckboxAddGPU() {
+    public GoogleCalculatorFormPage activateCheckboxAddGPU() {
         addGpuCheckbox.click();
         return this;
     }
 
     @Step("Select field: GPU Type")
-    private GooglePricingCalculatorFormPage selectGpuType(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectGpuType(GoogleCalculatorForm form) {
         gpuTypeList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
                 String.format("//*[@value='%s']", form.getGpuType().getValue())).click();
@@ -166,7 +161,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Select field: Number of GPUs")
-    private GooglePricingCalculatorFormPage selectNumberOfGpus(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectNumberOfGpus(GoogleCalculatorForm form) {
         numberOfGpusList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
                 String.format("//*[@value='%s'][contains(@ng-repeat, 'listingCtrl.computeServer.gpuType')]",
@@ -175,7 +170,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Select field: Local SSD")
-    private GooglePricingCalculatorFormPage selectLocalSsd(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectLocalSsd(GoogleCalculatorForm form) {
         localSsdList.click();
         getElementWithClickableWait(WaitTimeouts.THREE_SEC,
                 String.format("//*[@value='%s'][@ng-repeat='item in listingCtrl.dynamicSsd.computeServer']",
@@ -184,7 +179,7 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Select field: Datacenter Location")
-    private GooglePricingCalculatorFormPage selectDataCenterLocation(GoogleCalculatorForm form) {
+    public GoogleCalculatorFormPage selectDataCenterLocation(GoogleCalculatorForm form) {
         datacenterLocationList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC, String.format("//*[@id='%s']",
                 form.getDatacenterLocation().getValue())).click();
@@ -192,16 +187,16 @@ public class GooglePricingCalculatorFormPage extends AbstractPage {
     }
 
     @Step("Select field: Committed Usage")
-    private void selectCommittedUsage(GoogleCalculatorForm form) {
+    public void selectCommittedUsage(GoogleCalculatorForm form) {
         committedUsageList.click();
         getElementWithClickableWait(WaitTimeouts.ONE_SEC, String.format("//*[@id='%s']",
                 form.getCommittedUsage().getValue())).click();
     }
 
     @Step("Add selected to estimate")
-    public GooglePricingCalculatorEstimatePage submitForm() {
+    public GoogleCalculatorEstimatePage submitForm() {
         addToEstimateButton.click();
         LOGGER.info("Created new estimate page");
-        return new GooglePricingCalculatorEstimatePage(driver);
+        return new GoogleCalculatorEstimatePage(driver, new EstimatePageSteps(driver));
     }
 }

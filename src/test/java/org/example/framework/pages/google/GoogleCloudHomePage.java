@@ -33,9 +33,9 @@ public class GoogleCloudHomePage extends AbstractPage {
     }
 
     @Step("Open calculator page from Search results")
-    public GooglePricingCalculatorFormPage goToCalculatorPageFromSearchResults() {
+    public GoogleCalculatorFormPage goToCalculatorPageFromSearchResults() {
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//div[@class='gs-title']//a").click();
         LOGGER.info("Created new calculator page");
-        return new GooglePricingCalculatorFormPage(driver);
+        return new GoogleCalculatorFormPage(driver);
     }
 }

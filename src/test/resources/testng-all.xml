@@ -2,8 +2,27 @@
 
 <suite name="All tests" verbose="1" >
     <test name="All tests">
-        <packages>
-            <package name="org.example.framework.tests" />
-        </packages>
+        <classes>
+            <class name="org.example.framework.tests.SumComparisonTest">
+                <methods>
+                    <include name="testMinParameters" />
+                    <include name="testExtendedParameters" />
+                    <include name="testMaxParameters" />
+                </methods>
+            </class>
+            <class name="org.example.framework.tests.EstimateFormTest">
+                <methods>
+                    <include name="testMinParameters" />
+                    <include name="testExtendedParameters" />
+                    <include name="testMaxParameters" />
+                </methods>
+            </class>
+            <class name="org.example.framework.tests.EmailReceiptTest">
+                <methods>
+                    <include name="testExtendedParameters" />
+                    <include name="testMaxParameters" />
+                </methods>
+            </class>
+        </classes>
     </test>
 </suite>

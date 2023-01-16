@@ -30,22 +30,19 @@ public class YopmailHomePage extends AbstractPage {
     private String randomEmailNameFromYopmailPage;
 
 
-
     public YopmailHomePage(WebDriver driver, String estimateWindowHandle) {
         super(driver);
         this.estimateWindowHandle = estimateWindowHandle;
-
     }
 
-    @Step("Open yopmail.com in new tab")
-    public YopmailHomePage acceptCookies() {
+    private void acceptCookies() {
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//button[@id='accept']")
                 .click();
-        return this;
     }
 
     @Step("Create new mailbox with random name")
     public YopmailHomePage createNewMailBoxWithRandomName() {
+        acceptCookies();
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//a[@href='email-generator']").click();
         randomEmailNameFromYopmailPage = String.format("%s@yopmail.com", getElementWithPresenceWait(WaitTimeouts.TEN_SEC, "//span[@class='genytxt']").getText());
         getElementWithClickableWait(WaitTimeouts.TEN_SEC, "//button[@onclick='egengo();']").click();
@@ -77,20 +74,20 @@ public class YopmailHomePage extends AbstractPage {
         WebElement mailFrame = getElementWithPresenceWait(WaitTimeouts.ONE_SEC, "//iframe[@id='ifmail']");
         driver.switchTo().frame(mailFrame);
         String emailCost = estimatedMonthlyCostField.getText();
-        double parsedSumFromEmail = 0d;
+        double parsedSumFromEmail;
         Pattern pattern = Pattern.compile("([0-9,.]{2,20})");
         Matcher matcher = pattern.matcher(emailCost);
         if (matcher.find()) {
             NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
             parsedSumFromEmail = numberFormat.parse(matcher.group()).doubleValue();
+            LOGGER.info(String.format("Sum in email = %s", parsedSumFromEmail));
+        } else {
+            throw new AssertionError("Sum in email not found");
         }
-        LOGGER.info(String.format("Sum in email = %s", parsedSumFromEmail));
         return parsedSumFromEmail;
     }
 
     public String getRandomEmailNameFromYopmailPage() {
         return randomEmailNameFromYopmailPage;
     }
-
-
 }
