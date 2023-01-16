@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="All tests" verbose="1" >
+    <test name="Smoke tests">
+        <classes>
+            <class name="org.example.framework.tests.SumComparisonTest">
+                <methods>
+                    <include name="testMinParameters" />
+                </methods>
+            </class>
+            <class name="org.example.framework.tests.EstimateFormTest">
+                <methods>
+                    <include name="testMinParameters" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
